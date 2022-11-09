@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        keyboardType="email-address"
+        // keyboardType="email-address"
         style={styles.input}
       />
       <Text>Enter Password:</Text>
@@ -22,7 +22,7 @@ export default function Login({ navigation }) {
         placeholder="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
-        keyboardType="visible-password"
+        // keyboardType="visible-password"
         secureTextEntry
         style={styles.input}
       />
