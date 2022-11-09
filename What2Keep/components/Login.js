@@ -1,35 +1,38 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, SafeAreaView } from "react-native";
 import React from "react";
-
-// export default function Login({ navigation }) {
-//   return (
-//     <View>
-//       <Text>Login</Text>
-//       <Button
-//         title="GOTO Home"
-//         onPress={() => {
-//           navigation.navigate("Home");
-//         }}
-//       />
-//     </View>
-//   );
-// }
+import { useState } from "react";
 
 export default function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>Login</Text>
       <Text>Enter Email:</Text>
-      <TextInput style={styles.input}/>
+      <TextInput 
+        placeholder="Email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        keyboardType="email-address"
+        style={styles.input}
+      />
       <Text>Enter Password:</Text>
-      <TextInput style={styles.input}/>
+      <TextInput 
+        placeholder="Password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        keyboardType="visible-password"
+        secureTextEntry
+        style={styles.input}
+      />
       <Button
         title="LOGIN"
         onPress={() => {
           navigation.navigate("Home");
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -37,15 +40,15 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F9DCC8",
     alignItems: "center",
     justifyContent: "center",
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#777',
+    backgroundColor: "#fff",
     padding: 8,
     margin: 10,
-    width: 200,
+    width: "80%",
   }
 });
+
