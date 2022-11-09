@@ -44,7 +44,7 @@ app.get('/user-items', async (req, res) => {
   } else {
     // user signed in so send all their items
     try {
-      const result = await dbCalls.getUserItems();
+      const result = await dbCalls.getUserItems(userId);
       res.send(result).status(200).end();
     } catch (error) {
       res.status(404).end();
