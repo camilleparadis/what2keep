@@ -7,17 +7,29 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    job: {
+    username: {
       type: String,
       required: true,
       trim: true,
-      validate(value) {
-        if (value.length < 2)
-          throw new Error('Invalid job, must be at least 2 characters.');
-      },
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+      default: '',
     },
   },
-  { collection: 'users_list' }
+  { collection: 'User' }
 );
 
 const User = mongoose.model('User', UserSchema);
