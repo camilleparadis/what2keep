@@ -10,11 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Testing');
 });
 
 app.listen(process.env.PORT || port, () => {
-  console.log("REST API is listening.");
+  console.log('REST API is listening.');
 });
 
 // create an item for a given user
