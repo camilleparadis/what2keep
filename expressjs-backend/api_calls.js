@@ -35,6 +35,16 @@ app.post('/user-items', async (req, res) => {
   }
 });
 
+// read all the current users
+app.get('/user-items', async (req, res) => {
+  try {
+    const result = await dbCalls.getUsers();
+    res.send(result).status(200).end();
+  } catch (error) {
+    res.status(404).end();
+  }
+});
+
 // read the items of a given user
 app.get('/user-items', async (req, res) => {
   const { userId } = req.query;
