@@ -1,11 +1,36 @@
 import { ImageBackground, StyleSheet, Text, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
+import axios from 'axios';
 import { useState } from "react";
 
 export default function Register({ navigation }) {
+
+  // const [User, setUser] = useState(
+  //   {
+  //       name: "",
+  //       password: "",
+  //       email: ""
+  //   }
+  // );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+
+  async function makePostCall() {
+    try {
+      const response = await axios.post("http://10.2.94.232:5001/", {name: name, email: email, password: password});
+      navigation.navigate("Home");
+      return response;
+    }
+    catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+    
+
+
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}
     resizeMode = "cover"
@@ -40,9 +65,7 @@ export default function Register({ navigation }) {
     </SafeAreaView>
     <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
+        onPress={makePostCall}
         underlayColor='#fff'>
         <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
       </TouchableOpacity>
