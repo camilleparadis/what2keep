@@ -1,42 +1,87 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { ImageBackground, StyleSheet, Text, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
+import { useState } from "react";
 
 export default function Register({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   return (
-    <View style={styles.container}>
-      <Text>Register</Text>
-      <Text>Enter Name:</Text>
+    <ImageBackground source = {require('../assets/loginBackground.png')}
+    resizeMode = "cover"
+    style = {styles.image}>
+    <SafeAreaView style={styles.container}>
+      <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Register</Text>
+      <Text style={styles.inputText}>Enter Name:</Text>
       <TextInput 
+        placeholder='e.g. John Doe'
+        value={name}
+        onChangeText={(text) => setName(text)}
         style={styles.input}
-        placeholder='e.g. John Doe' />
-      <Text>Enter Email:</Text>
+         />
+      <Text style={styles.inputText}>Enter Email:</Text>
+      <TextInput 
+        placeholder='Email'
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        style={styles.input}
+      />
+      <Text style={styles.inputText}>Enter Password:</Text>
+      <TextInput 
+        placeholder="Password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        // keyboardType="visible-password"
+        secureTextEntry
+        style={styles.input}
+      />
+      <Text style={styles.inputText}>Re-Enter Password:</Text>
       <TextInput style={styles.input}/>
-      <Text>Enter Password:</Text>
-      <TextInput style={styles.input}/>
-      <Text>Re-Enter Password:</Text>
-      <TextInput style={styles.input}/>
-      <Button
-        title="CREATE ACCOUNT"
+    </SafeAreaView>
+    <TouchableOpacity
+        style={styles.button}
         onPress={() => {
           navigation.navigate("Home");
         }}
-      />
-    </View>
+        underlayColor='#fff'>
+        <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "80%"
+  },
+  input: {
+    width: "80%",
     backgroundColor: "#fff",
+    padding: 8,
+    margin: 10,
+  },
+  image: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  input: {
+  button: {
+    marginRight:40,
+    marginLeft:40,
+    marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    padding: 40,
+    backgroundColor:'#fff',
+    borderRadius:10,
     borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
+    borderColor: '#fff'
+  },
+  inputText: {
+    fontFamily: 'Iowan Old Style', 
+    fontSize: 15,
   }
 });
