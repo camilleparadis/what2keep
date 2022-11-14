@@ -1,14 +1,11 @@
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const User = require('./User');
 const Item = require('./Item');
-const { MongoClient, ServerApiVersion } = require('mongodb');
 
-// const uri = "mongodb+srv://What2Keep:<password>@cluster0.vasn2wv.mongodb.net/?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
+dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
 
 async function testing() {
   return true;
