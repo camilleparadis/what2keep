@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT || port, () => {
-  console.log('REST API is listening.');
+  console.log(`REST API is listening. on port ${process.env.PORT}`);
 });
 
 // create an item for a given user
