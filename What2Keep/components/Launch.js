@@ -21,7 +21,7 @@ export default function Launch({ navigation }) {
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.bottomButton}
         onPress={() => {
           navigation.navigate("Register");
         }}
@@ -48,9 +48,24 @@ const styles = StyleSheet.create({
     marginRight:40,
     marginLeft:40,
     marginTop:10,
+    // marginBottom: 20,
     paddingTop:10,
     paddingBottom:10,
-    backgroundColor:'#CCC6CE',
+    padding: 40,
+    backgroundColor:'#F4BAA7',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  bottomButton: {
+    marginRight:40,
+    marginLeft:40,
+    marginTop:10,
+    marginBottom: 20,
+    paddingTop:10,
+    paddingBottom:10,
+    padding: 40,
+    backgroundColor:'#F4BAA7',
     borderRadius:10,
     borderWidth: 1,
     borderColor: '#fff'
