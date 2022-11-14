@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Testing');
+  res.send('Testing more ');
 });
 
 app.listen(process.env.PORT || port, () => {
@@ -37,7 +37,7 @@ app.post('/user-items', async (req, res) => {
 
 // TODO: post for making a user
 // create an item for a given user
-app.post('/user', async (req, res) => {
+app.post('/users', async (req, res) => {
   const { email, password, name } = req.body;
   // const bod = req.body;
   // const email = bod.email;
@@ -45,7 +45,8 @@ app.post('/user', async (req, res) => {
   // const name = bod.name;
   // add new user
   try {
-    // await dbCalls.addUser(email, password, name);
+    let m = await dbCalls.addUser(email, password, name);
+    console.log(m);
     res
       .send('testing2: ' + email + ' ' + password + ' ' + name)
       .status(204)
@@ -56,7 +57,8 @@ app.post('/user', async (req, res) => {
 });
 
 // read all the current users
-app.get('/user-items', async (req, res) => {
+app.get('/users', async (req, res) => {
+  console.log('trying to get all users');
   try {
     const result = await dbCalls.getUsers();
     res.send(result).status(200).end();

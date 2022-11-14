@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const User = require('./User');
 const Item = require('./Item');
 
@@ -9,6 +9,25 @@ mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
 
 async function testing() {
   return true;
+}
+
+async function addUser(email, password, name) {
+  try {
+    const userToAdd = new User({
+      email: email,
+      password: password,
+      name: name,
+    });
+    const savedUser = await userToAdd.save();
+    return savedUser;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+async function getUsers() {
+  return await User.find();
 }
 
 // async function registerUser(user) {
@@ -44,4 +63,12 @@ async function testing() {
 //   return true;
 // }
 
+// unnecessary
+// async function disconnectDB() {
+//   await mongoose.connection.close();
+//   await mongoose.disconnect();
+// }
+
+exports.addUser = addUser;
+exports.getUsers = getUsers;
 exports.testing = testing;
