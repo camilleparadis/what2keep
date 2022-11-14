@@ -38,11 +38,18 @@ app.post('/user-items', async (req, res) => {
 // TODO: post for making a user
 // create an item for a given user
 app.post('/user', async (req, res) => {
-  const { email, password, name } = req.query;
+  const { email, password, name } = req.body;
+  // const bod = req.body;
+  // const email = bod.email;
+  // const password = bod.password;
+  // const name = bod.name;
   // add new user
   try {
     // await dbCalls.addUser(email, password, name);
-    res.send('testing2').status(204).end();
+    res
+      .send('testing2: ' + email + ' ' + password + ' ' + name)
+      .status(204)
+      .end();
   } catch (error) {
     res.status(400).end();
   }

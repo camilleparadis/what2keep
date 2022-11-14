@@ -25,7 +25,7 @@ export default function Register({ navigation }) {
 
   async function makePostCall() {
     try {
-      const response = await axios.post("http://192.168.1.12:5001/user", {
+      const response = await axios.post("http://10.144.242.97:5001/user", {
         name: name,
         email: email,
         password: password,
