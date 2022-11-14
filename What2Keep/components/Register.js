@@ -1,10 +1,17 @@
-import { ImageBackground, StyleSheet, Text, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  Button,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useState } from "react";
 
 export default function Register({ navigation }) {
-
   // const [User, setUser] = useState(
   //   {
   //       name: "",
@@ -16,58 +23,62 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-
   async function makePostCall() {
     try {
-      const response = await axios.post("http://10.2.94.232:5001/", {name: name, email: email, password: password});
+      const response = await axios.post("http://192.168.1.12:5001/user", {
+        name: name,
+        email: email,
+        password: password,
+      });
+      console.log(response.data);
       navigation.navigate("Home");
       return response;
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       return false;
     }
   }
-    
-
 
   return (
-    <ImageBackground source = {require('../assets/loginBackground.png')}
-    resizeMode = "cover"
-    style = {styles.image}>
-    <SafeAreaView style={styles.container}>
-      <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Register</Text>
-      <Text style={styles.inputText}>Enter Name:</Text>
-      <TextInput 
-        placeholder='e.g. John Doe'
-        value={name}
-        onChangeText={(text) => setName(text)}
-        style={styles.input}
-         />
-      <Text style={styles.inputText}>Enter Email:</Text>
-      <TextInput 
-        placeholder='Email'
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        style={styles.input}
-      />
-      <Text style={styles.inputText}>Enter Password:</Text>
-      <TextInput 
-        placeholder="Password"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        // keyboardType="visible-password"
-        secureTextEntry
-        style={styles.input}
-      />
-      <Text style={styles.inputText}>Re-Enter Password:</Text>
-      <TextInput style={styles.input}/>
-    </SafeAreaView>
-    <TouchableOpacity
+    <ImageBackground
+      source={require("../assets/loginBackground.png")}
+      resizeMode="cover"
+      style={styles.image}
+    >
+      <SafeAreaView style={styles.container}>
+        <Text style={{ fontSize: 40, padding: 30 }}>Register</Text>
+        <Text style={styles.inputText}>Enter Name:</Text>
+        <TextInput
+          placeholder="e.g. John Doe"
+          value={name}
+          onChangeText={(text) => setName(text)}
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Enter Email:</Text>
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Enter Password:</Text>
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          // keyboardType="visible-password"
+          secureTextEntry
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Re-Enter Password:</Text>
+        <TextInput style={styles.input} />
+      </SafeAreaView>
+      <TouchableOpacity
         style={styles.button}
         onPress={makePostCall}
-        underlayColor='#fff'>
-        <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
+        underlayColor="#fff"
+      >
+        <Text style={{ fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -78,7 +89,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "80%"
+    width: "80%",
   },
   input: {
     width: "80%",
@@ -92,19 +103,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    marginRight:40,
-    marginLeft:40,
-    marginTop:10,
-    paddingTop:10,
-    paddingBottom:10,
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     padding: 40,
-    backgroundColor:'#fff',
-    borderRadius:10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff'
+    borderColor: "#fff",
   },
   inputText: {
-    fontFamily: 'Iowan Old Style', 
     fontSize: 15,
-  }
+  },
 });
