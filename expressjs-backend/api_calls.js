@@ -1,7 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dbCalls = require('./models/dbCalls');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dbCalls = require("./models/dbCalls");
 
 const app = express();
 const port = 5001;
@@ -9,16 +9,16 @@ const port = 5001;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Testing more ');
+app.get("/", (req, res) => {
+  res.send("Testing more ");
 });
 
 app.listen(process.env.PORT || port, () => {
-  console.log('REST API is listening.');
+  console.log("REST API is listening.");
 });
 
 // create an item for a given user
-app.post('/user-items', async (req, res) => {
+app.post("/user-items", async (req, res) => {
   const item = req.body;
   const { userId } = req.query;
   if (userId === undefined) {
@@ -37,7 +37,7 @@ app.post('/user-items', async (req, res) => {
 
 // TODO: post for making a user
 // create an item for a given user
-app.post('/users', async (req, res) => {
+app.post("/users", async (req, res) => {
   const { email, password, name } = req.body;
   // const bod = req.body;
   // const email = bod.email;
@@ -45,10 +45,10 @@ app.post('/users', async (req, res) => {
   // const name = bod.name;
   // add new user
   try {
-    let m = await dbCalls.addUser(email, password, name);
+    const m = await dbCalls.addUser(email, password, name);
     console.log(m);
     res
-      .send('testing2: ' + email + ' ' + password + ' ' + name)
+      .send("testing2: " + email + " " + password + " " + name)
       .status(204)
       .end();
   } catch (error) {
@@ -57,10 +57,11 @@ app.post('/users', async (req, res) => {
 });
 
 // read all the current users
-app.get('/users', async (req, res) => {
-  console.log('trying to get all users');
+app.get("/users", async (req, res) => {
+  console.log("trying to get all users");
+  const { userId } = req.body;
   try {
-    const result = await dbCalls.getUsers();
+    const result = await dbCalls.getUsers(userId);
     res.send(result).status(200).end();
   } catch (error) {
     res.status(404).end();
@@ -68,7 +69,7 @@ app.get('/users', async (req, res) => {
 });
 
 // read the items of a given user
-app.get('/user-items', async (req, res) => {
+app.get("/user-items", async (req, res) => {
   const { userId } = req.query;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
@@ -85,7 +86,7 @@ app.get('/user-items', async (req, res) => {
 });
 
 // read a particular item
-app.get('/user-items', async (req, res) => {
+app.get("/user-items", async (req, res) => {
   const { itemId } = req.query;
   const { userId } = req.query;
   if (userId === undefined) {
@@ -103,7 +104,7 @@ app.get('/user-items', async (req, res) => {
 });
 
 // update a particular item
-app.patch('/user-items', async (req, res) => {
+app.patch("/user-items", async (req, res) => {
   const { itemId } = req.query;
   const newItem = req.body;
   const { userId } = req.query;
@@ -121,8 +122,40 @@ app.patch('/user-items', async (req, res) => {
   }
 });
 
+// update a particular user
+app.patch("/users", async (req, res) => {
+  const { userId, email, password, name } = req.body;
+  if (userId === undefined) {
+    // need the userId
+    res.status(401).end();
+  } else {
+    try {
+      await dbCalls.updateUser({ _id: userId }, email, password, name);
+      res.status(204).end();
+    } catch (error) {
+      res.status(400).end();
+    }
+  }
+});
+
+// delete a particular user
+app.delete("/users", async (req, res) => {
+  const { userId } = req.body;
+  if (userId === undefined) {
+    // need the userId
+    res.status(401).end();
+  } else {
+    try {
+      await dbCalls.deleteUser(userId);
+      res.status(204).end();
+    } catch (error) {
+      res.status(400).end();
+    }
+  }
+});
+
 // delete a particular item
-app.patch('/user-items', async (req, res) => {
+app.delete("/user-items", async (req, res) => {
   const { itemId } = req.query;
   const { userId } = req.query;
   if (userId === undefined) {
