@@ -46,11 +46,15 @@ app.post("/users", async (req, res) => {
   // add new user
   try {
     const m = await dbCalls.addUser(email, password, name);
-    console.log(m);
-    res
-      .send("testing2: " + email + " " + password + " " + name)
-      .status(204)
-      .end();
+    // console.log(m);
+    if (m) {
+      res
+        .send("testing2: " + email + " " + password + " " + name)
+        .status(204)
+        .end();
+    } else {
+      res.status(400).end();
+    }
   } catch (error) {
     res.status(400).end();
   }

@@ -19,36 +19,60 @@ async function addUser(email, password, name) {
       password,
       name,
     });
-    const savedUser = await userToAdd.save();
-    return savedUser;
+    const savedUser = await User.insertMany(userToAdd); // await userToAdd.save();
+    // console.log("savedUser: " + JSON.stringify(savedUser));
+    return savedUser[0];
   } catch (error) {
-    console.log(error);
-    return false;
+    throw new Error("AddUserError");
+    // console.log(error);
+    // return false;
   }
 }
 
 // find user by id
-async function findUser(userId) {
-  return await User.findById(userId);
+async function findUserById(userId) {
+  return await User.find({ _id: userId });
+}
+
+async function findUserByEmail(email) {
+  return await User.find({ email });
 }
 
 // R
-async function getUsers(userId) {
+async function getUsers(userId, email) {
   if (userId) {
     // get a particular user
     try {
-      return await findUser(userId);
+      return (await findUserById(userId))[0];
+      // if (res != undefined) {
+      //   return res;
+      // } else {
+      //   throw new Error("UserIdNotFoundException");
+      // }
     } catch (error) {
-      console.log(error);
-      return false;
+      throw new Error("UserIdNotFoundException");
+    }
+    // const res = (await findUserById(userId))[0];
+    // if (res != undefined) {
+    //   return res;
+    // } else {
+    //   throw new Error("UserIdNotFoundException");
+    // }
+  } else if (email) {
+    // get a particular user by email
+    console.log("DETECTED EMAIL: " + email);
+    const res = (await findUserByEmail(email))[0];
+    if (res != undefined) {
+      return res;
+    } else {
+      throw new Error("UserEmailNotFoundException");
     }
   } else {
     // get every user
     try {
       return await User.find();
     } catch (error) {
-      console.log(error);
-      return false;
+      throw new Error("NoUsersFoundException"); // TODO: make a test to hit here, probably need to setup the local memory version of testing to get here
     }
   }
 }
@@ -57,26 +81,43 @@ async function getUsers(userId) {
 async function updateUser(userId, email, password, name) {
   // should only make changes if given new email, password, and/or name
   try {
-    // const doc = User.findUser(userId);
-    return await User.updateOne(userId, {
-      email: email ? email : User.find(userId).email,
-      password: password ? password : User.find(userId).password,
-      name: name ? name : User.find(userId).name,
-    });
+    return await User.updateOne(
+      { _id: userId },
+      {
+        email: email ? email : User.find(userId).email,
+        password: password ? password : User.find(userId).password,
+        name: name ? name : User.find(userId).name,
+      },
+    );
   } catch (error) {
-    console.log(error);
-    return false;
+    throw new Error("BadUpdateException");
+    // console.log(error);
+    // return false;
   }
 }
 
 // D
-async function deleteUser(userId) {
+async function deleteUser(userId, email) {
   // deletes a user given the id
-  try {
-    return await User.deleteOne({ _id: userId });
-  } catch (error) {
-    console.log(error);
-    return false;
+  if (userId) {
+    try {
+      return await User.deleteOne({ _id: userId });
+    } catch (error) {
+      throw new Error("DeleteUserException");
+    }
+    // const res = await User.deleteOne({ _id: userId });
+    // if (res.deletedCount > 0) {
+    //   return res;
+    // } else {
+    //   throw new Error("DeleteUserException");
+    // }
+  } else if (email) {
+    const res = await User.deleteOne({ email });
+    if (res.deletedCount > 0) {
+      return res;
+    } else {
+      throw new Error("DeleteUserException");
+    }
   }
 }
 
@@ -84,7 +125,7 @@ async function deleteUser(userId) {
 //   return true;
 // }
 
-// ///
+//
 // async function loginUser(user) {
 //   return true;
 // }
