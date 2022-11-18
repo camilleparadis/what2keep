@@ -245,3 +245,7 @@ test("Testing delete an IMAGE", async () => {
   const res = await myFunctions.testing();
   expect(res).toBe(true);
 });
+
+afterAll(() => {
+  return myFunctions.dc();
+});

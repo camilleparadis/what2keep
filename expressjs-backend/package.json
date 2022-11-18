@@ -4,11 +4,11 @@
   "description": "",
   "main": "api_calls.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand --force-exit",
+    "test": "jest --detectOpenHandles --runInBand",
     "dev": "nodemon api_calls.js",
     "start": "node api_calls.js",
     "lint": "eslint .",
-    "coverage": "jest --collectCoverage --force-exit"
+    "coverage": "jest --collectCoverage "
   },
   "author": "",
   "license": "ISC",

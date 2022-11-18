@@ -160,6 +160,11 @@ async function deleteUser(userId, email) {
 //   await mongoose.disconnect();
 // }
 
+async function dc() {
+  mongoose.disconnect();
+}
+
+exports.dc = dc;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.addUser = addUser;
