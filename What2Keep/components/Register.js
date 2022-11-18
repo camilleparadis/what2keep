@@ -1,42 +1,120 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  Button,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Register({ navigation }) {
+  // const [User, setUser] = useState(
+  //   {
+  //       name: "",
+  //       password: "",
+  //       email: ""
+  //   }
+  // );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  async function makePostCall() {
+    try {
+      const response = await axios.post("http://10.144.242.97:5001/user", {
+        name: name,
+        email: email,
+        password: password,
+      });
+      console.log(response.data);
+      navigation.navigate("Home");
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Register</Text>
-      <Text>Enter Name:</Text>
-      <TextInput 
-        style={styles.input}
-        placeholder='e.g. John Doe' />
-      <Text>Enter Email:</Text>
-      <TextInput style={styles.input}/>
-      <Text>Enter Password:</Text>
-      <TextInput style={styles.input}/>
-      <Text>Re-Enter Password:</Text>
-      <TextInput style={styles.input}/>
-      <Button
-        title="CREATE ACCOUNT"
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
-      />
-    </View>
+    <ImageBackground
+      source={require("../assets/loginBackground.png")}
+      resizeMode="cover"
+      style={styles.image}
+    >
+      <SafeAreaView style={styles.container}>
+        <Text style={{ fontSize: 40, padding: 30 }}>Register</Text>
+        <Text style={styles.inputText}>Enter Name:</Text>
+        <TextInput
+          placeholder="e.g. John Doe"
+          value={name}
+          onChangeText={(text) => setName(text)}
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Enter Email:</Text>
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Enter Password:</Text>
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          // keyboardType="visible-password"
+          secureTextEntry
+          style={styles.input}
+        />
+        <Text style={styles.inputText}>Re-Enter Password:</Text>
+        <TextInput style={styles.input} />
+      </SafeAreaView>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={makePostCall}
+        underlayColor="#fff"
+      >
+        <Text style={{ fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "80%",
+  },
+  input: {
+    width: "80%",
     backgroundColor: "#fff",
+    padding: 8,
+    margin: 10,
+  },
+  image: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  input: {
+  button: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    padding: 40,
+    backgroundColor: "#fff",
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-  }
+    borderColor: "#fff",
+  },
+  inputText: {
+    fontSize: 15,
+  },
 });
