@@ -12,7 +12,8 @@ export default function Login({ navigation }) {
     style = {styles.image}>
 
     <SafeAreaView style={styles.container}>
-    <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Login</Text>
+    {/* <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Login</Text> */}
+    <Text style={{fontSize: 40, padding: 30 }}>Login</Text>
       <Text style={styles.inputText}>Enter Email:</Text>
       <TextInput 
         placeholder="Email"
@@ -36,7 +37,8 @@ export default function Login({ navigation }) {
           navigation.navigate("Home");
         }}
         underlayColor='#fff'>
-        <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>LOGIN</Text>
+        {/* <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>LOGIN</Text> */}
+        <Text style={{fontSize: 17, padding: 1 }}>LOGIN</Text>
       </TouchableOpacity>
     </SafeAreaView>
   </ImageBackground>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff'
   },
   inputText: {
-    fontFamily: 'Iowan Old Style', 
+    // fontFamily: 'Iowan Old Style', 
     fontSize: 15,
   }
 });
