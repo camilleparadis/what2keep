@@ -10,7 +10,7 @@ export default function Register({ navigation }) {
 
   const addUser = async () => {
     axios
-      .post("http://192.168.1.12:5001/", ) // use machine's ip as stand in for localhost
+      .post("https://what2keep.azurewebsites.net/", ) // updated w azure website
       .then((response) => {
         console.log(response);
         console.log(response.data);
