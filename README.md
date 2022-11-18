@@ -40,6 +40,10 @@ npm run start
 
 Expo should launch, and a QR Code should appear to scan with a mobile phone. Alternatively you may choose to use an android or iOS simulator to launch expo.
 
+<img width="706" alt="Screen Shot 2022-11-18 at 12 40 17 PM" src="https://user-images.githubusercontent.com/57431775/202798506-2434cf68-741a-416a-8fce-61788db1f812.png">
+>example of what expected output when running frontend looks like
+
+
 
 https://what2keep.azurewebsites.net/
 
