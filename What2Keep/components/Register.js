@@ -1,17 +1,31 @@
 import { ImageBackground, StyleSheet, Text, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { useState } from "react";
+import axios from 'axios';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  const addUser = async () => {
+    axios
+      .post("https://what2keep.azurewebsites.net/", ) // updated w azure website
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}
     resizeMode = "cover"
     style = {styles.image}>
     <SafeAreaView style={styles.container}>
-      <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Register</Text>
+      <Text style={{fontSize: 40, padding: 30 }}>Register</Text>
       <Text style={styles.inputText}>Enter Name:</Text>
       <TextInput 
         placeholder='e.g. John Doe'
@@ -44,7 +58,7 @@ export default function Register({ navigation }) {
           navigation.navigate("Home");
         }}
         underlayColor='#fff'>
-        <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
+        <Text style={{fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
       </TouchableOpacity>
     </ImageBackground>
   );

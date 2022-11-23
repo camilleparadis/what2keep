@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ItemSchema = new mongoose.Schema(
   {
@@ -17,12 +17,12 @@ const ItemSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: '',
+      default: "",
     },
   },
-  { collection: 'Item' }
+  { collection: "Item" },
 );
 
-const Item = mongoose.model('Item', ItemSchema);
+const Item = mongoose.model("Item", ItemSchema);
 
 module.exports = Item;

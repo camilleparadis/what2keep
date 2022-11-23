@@ -16,7 +16,7 @@ export default function AddItem({ navigation }) {
 
   const testingConnection2 = async () => {
     axios
-      .get("http://192.168.1.12:5001/") // use machine's ip as stand in for localhost
+      .get("http://10.144.242.97:5001/") // use machine's ip as stand in for localhost
       .then((response) => {
         console.log(response);
         console.log(response.data);

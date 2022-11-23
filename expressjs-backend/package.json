@@ -4,16 +4,17 @@
   "description": "",
   "main": "api_calls.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --runInBand",
     "dev": "nodemon api_calls.js",
     "start": "node api_calls.js",
     "lint": "eslint .",
-    "coverage": "jest --collectCoverage"
+    "coverage": "jest --collectCoverage "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.7.0",
     "prettier": "^2.7.1"
