@@ -1,13 +1,32 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const User = require("./User");
+const UserSchema = require("./User");
 const Item = require("./Item");
 
 dotenv.config();
 
-console.log("trying to connect to database");
-console.log(process.env.MONGODB_URI);
-mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
+
+let dbConnection;
+
+function setConnection(newConn) {
+  dbConnection = newConn;
+  return dbConnection;
+}
+
+// TODO: ASK BJ ABOUT HOW CAN COVER THIS IN TEST WHEN USING MEMORY FOR TESTING????
+function getDbConnection() {
+  if (!dbConnection) {
+    dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  }
+  return dbConnection;
+}
+
+/// not 100% if we need this for production/ nontest environment?
+// mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
+
 
 async function testing() {
   return true;
@@ -15,54 +34,42 @@ async function testing() {
 
 // C
 async function addUser(email, password, name) {
+  const userModel = getDbConnection().model("User", UserSchema);
   try {
-    const userToAdd = new User({
+    const userToAdd = new userModel({
       email,
       password,
       name,
     });
-    const savedUser = await User.insertMany(userToAdd); // await userToAdd.save();
-    // console.log("savedUser: " + JSON.stringify(savedUser));
+    const savedUser = await userModel.insertMany(userToAdd);
     return savedUser[0];
   } catch (error) {
     throw new Error("AddUserError");
-    // console.log(error);
-    // return false;
   }
 }
 
-// find user by id
 async function findUserById(userId) {
-  return await User.find({ _id: userId });
+  const userModel = getDbConnection().model("User", UserSchema);
+  return await userModel.find({ _id: userId });
 }
 
 async function findUserByEmail(email) {
-  return await User.find({ email });
+  const userModel = getDbConnection().model("User", UserSchema);
+  return await userModel.find({ email });
 }
 
 // R
 async function getUsers(userId, email) {
+  const userModel = getDbConnection().model("User", UserSchema);
   if (userId) {
     // get a particular user
     try {
       return (await findUserById(userId))[0];
-      // if (res != undefined) {
-      //   return res;
-      // } else {
-      //   throw new Error("UserIdNotFoundException");
-      // }
     } catch (error) {
       throw new Error("UserIdNotFoundException");
     }
-    // const res = (await findUserById(userId))[0];
-    // if (res != undefined) {
-    //   return res;
-    // } else {
-    //   throw new Error("UserIdNotFoundException");
-    // }
   } else if (email) {
     // get a particular user by email
-    console.log("DETECTED EMAIL: " + email);
     const res = (await findUserByEmail(email))[0];
     if (res != undefined) {
       return res;
@@ -71,10 +78,11 @@ async function getUsers(userId, email) {
     }
   } else {
     // get every user
-    try {
-      return await User.find();
-    } catch (error) {
-      throw new Error("NoUsersFoundException"); // TODO: make a test to hit here, probably need to setup the local memory version of testing to get here
+    const res = await userModel.find();
+    if (res[0]) {
+      return res;
+    } else {
+      throw new Error("NoUsersFoundException");
     }
   }
 }
@@ -82,39 +90,33 @@ async function getUsers(userId, email) {
 // U
 async function updateUser(userId, email, password, name) {
   // should only make changes if given new email, password, and/or name
+  const userModel = getDbConnection().model("User", UserSchema);
   try {
-    return await User.updateOne(
+    return await userModel.updateOne(
       { _id: userId },
       {
-        email: email ? email : User.find(userId).email,
-        password: password ? password : User.find(userId).password,
-        name: name ? name : User.find(userId).name,
+        email: email ? email : userModel.find(userId).email,
+        password: password ? password : userModel.find(userId).password,
+        name: name ? name : userModel.find(userId).name,
       },
     );
   } catch (error) {
     throw new Error("BadUpdateException");
-    // console.log(error);
-    // return false;
   }
 }
 
 // D
 async function deleteUser(userId, email) {
-  // deletes a user given the id
+  // deletes a user given the id or email
+  const userModel = getDbConnection().model("User", UserSchema);
   if (userId) {
     try {
-      return await User.deleteOne({ _id: userId });
+      return await userModel.deleteOne({ _id: userId });
     } catch (error) {
       throw new Error("DeleteUserException");
     }
-    // const res = await User.deleteOne({ _id: userId });
-    // if (res.deletedCount > 0) {
-    //   return res;
-    // } else {
-    //   throw new Error("DeleteUserException");
-    // }
   } else if (email) {
-    const res = await User.deleteOne({ email });
+    const res = await userModel.deleteOne({ email });
     if (res.deletedCount > 0) {
       return res;
     } else {
@@ -156,16 +158,12 @@ async function deleteUser(userId, email) {
 //   return true;
 // }
 
-// unnecessary
-// async function disconnectDB() {
-//   await mongoose.connection.close();
-//   await mongoose.disconnect();
-// }
-
 async function dc() {
   mongoose.disconnect();
 }
 
+exports.setConnection = setConnection;
+exports.getDbConnection = getDbConnection;
 exports.dc = dc;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;

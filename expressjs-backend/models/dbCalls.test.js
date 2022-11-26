@@ -1,5 +1,12 @@
 // import {  } from "./index";
 const myFunctions = require("./dbCalls");
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const UserSchema = require("./User");
+const mongoose = require("mongoose");
+
+let mongoServer;
+let conn;
+let userModel;
 
 var email;
 var password;
@@ -7,7 +14,30 @@ var name;
 var email2;
 var password2;
 var name2;
-beforeAll(() => {
+// beforeAll(() => {
+//   email = "test@email.com";
+//   password = "passphrase";
+//   name = "Tim2";
+//   email2 = "test2@email.com";
+//   password2 = "secret";
+//   name2 = "Tester2";
+// });
+
+beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+
+  const mongooseOpts = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+
+  conn = await mongoose.createConnection(uri, mongooseOpts);
+
+  userModel = conn.model("User", UserSchema);
+
+  myFunctions.setConnection(conn);
+
   email = "test@email.com";
   password = "passphrase";
   name = "Tim2";
@@ -16,23 +46,38 @@ beforeAll(() => {
   name2 = "Tester2";
 });
 
+afterAll(async () => {
+  await conn.dropDatabase();
+  await conn.close();
+  await mongoServer.stop();
+});
+
 // test("Testing portfolio -- create empty portfolio", () => {
 //   expect(portfolio.currentPortfolio).toEqual({});
 // });
 
-test("Testing testing", async () => {
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
-});
+// test("Testing testing", async () => {
+//   const res = await myFunctions.testing();
+//   expect(res).toBe(true);
+// });
 
-test("Testing registration", async () => {
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
-});
+// test("Testing registration", async () => {
+//   const res = await myFunctions.testing();
+//   expect(res).toBe(true);
+// });
 
-test("Testing login", async () => {
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
+// test("Testing login", async () => {
+//   const res = await myFunctions.testing();
+//   expect(res).toBe(true);
+// });
+
+test("Testing get all users when there are none", async () => {
+  // R
+  try {
+    await myFunctions.getUsers();
+  } catch (error) {
+    expect(error).toEqual(new Error("NoUsersFoundException"));
+  }
 });
 
 // User tests
@@ -44,8 +89,6 @@ test("Testing add an user", async () => {
 
 test("Testing add an user with failure", async () => {
   // C
-  // const result = await myFunctions.addUser();
-  // expect(result).toEqual(expect.objectContaining({ email, password, name }));
   try {
     await myFunctions.addUser();
   } catch (error) {
@@ -87,13 +130,6 @@ test("Testing get a user that exists by id", async () => {
 
 test("Testing get an user that DOESN'T exists by id", async () => {
   // R
-  // const res = await myFunctions.getUsers("xxfakeUserIdxx");
-  // expect(res).toEqual(false);
-
-  // expect(async () => {
-  //   await myFunctions.getUsers("xxfakeUserIdxx");
-  // }).toThrow();
-
   // async await way to test for exceptions
   try {
     await myFunctions.getUsers("xxfakeUserIdxx");
@@ -115,7 +151,7 @@ test("Testing get an user that DOESN'T exists by email", async () => {
 test("Testing get all users", async () => {
   // R
   const res = await myFunctions.getUsers();
-  expect(res[4]).toEqual(expect.objectContaining({ email, password, name })); // TODO: make dynamic to always get the end one?
+  expect(res[0]).toEqual(expect.objectContaining({ email, password, name })); // TODO: make dynamic to always get the end one?
 });
 
 //TODO: test where there are no users
