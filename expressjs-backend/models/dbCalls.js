@@ -5,6 +5,7 @@ const Item = require("./Item");
 
 dotenv.config();
 
+
 let dbConnection;
 
 function setConnection(newConn) {
@@ -25,6 +26,7 @@ function getDbConnection() {
 
 /// not 100% if we need this for production/ nontest environment?
 // mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
+
 
 async function testing() {
   return true;
