@@ -1,10 +1,52 @@
-import { ImageBackground, StyleSheet, Text, View, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import { ImageBackground, Image, StyleSheet, Text, View, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { useState } from "react";
+import axios from 'axios';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+  async function logIn() {
+    // backend checks auth
+    try {
+      const response = await axios.post("https://what2keep.azurewebsites.net/users", {
+        email: email,
+        password: password,
+      });
+      console.log(response.data);
+      // let result = findUserByEmail(response.data.email)
+      navigation.navigate("Home");
+      return result;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  // async function getUsers() {
+  //   try {
+  //     const user_list = await axios.get("https://what2keep.azurewebsites.net/users", {
+  //       // email: email,
+  //       // password: password,
+  //     });
+  //     console.log(user_list)
+  //     let result = user_list.filter(user => user.email = email);
+  //     if (result){
+  //       return result
+  //     }
+  //     else{
+  //       return false
+  //     }
+  //     // console.log(foundUser['email']);
+  //     // navigation.navigate("Home");
+  //     // return foundUser;
+
+  //   } catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // }
 
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}
@@ -12,8 +54,7 @@ export default function Login({ navigation }) {
     style = {styles.image}>
 
     <SafeAreaView style={styles.container}>
-    {/* <Text style={{fontFamily: 'Iowan Old Style', fontSize: 40, padding: 30 }}>Login</Text> */}
-    <Text style={{fontSize: 40, padding: 30 }}>Login</Text>
+    <Text style={{fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>Login</Text>
       <Text style={styles.inputText}>Enter Email:</Text>
       <TextInput 
         placeholder="Email"
@@ -33,12 +74,12 @@ export default function Login({ navigation }) {
       />
       <TouchableOpacity
         style={styles.button}
+        // onPress={getUsers}
         onPress={() => {
           navigation.navigate("Home");
         }}
         underlayColor='#fff'>
-        {/* <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>LOGIN</Text> */}
-        <Text style={{fontSize: 17, padding: 1 }}>LOGIN</Text>
+        <Text style={{fontFamily: "Inter-Light", fontSize: 17, padding: 1 }}>LOGIN</Text>
       </TouchableOpacity>
     </SafeAreaView>
   </ImageBackground>
@@ -51,13 +92,15 @@ const styles = StyleSheet.create({
     // flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "80%"
+    width: "80%",
+    autoCapitalize: 'none'
   },
   input: {
     backgroundColor: "#fff",
     padding: 8,
     margin: 10,
     width: "80%",
+    autoCapitalize: 'none'
   },
   image: {
     flex: 1,
@@ -77,8 +120,9 @@ const styles = StyleSheet.create({
     borderColor: '#fff'
   },
   inputText: {
-    // fontFamily: 'Iowan Old Style', 
+    fontFamily: 'Inter-thin', 
     fontSize: 15,
+    autoCapitalize: 'none'
   }
 });
 

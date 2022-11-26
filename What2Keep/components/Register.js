@@ -8,24 +8,28 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const addUser = async () => {
-    axios
-      .post("https://what2keep.azurewebsites.net/", ) // updated w azure website
-      .then((response) => {
-        console.log(response);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
+  async function addUser() {
+    try {
+      const response = await axios.post("https://what2keep.azurewebsites.net/users", {
+        name: name,
+        email: email,
+        password: password,
       });
-  };
+      console.log(response.data);
+      navigation.navigate("Home");
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}
     resizeMode = "cover"
     style = {styles.image}>
     <SafeAreaView style={styles.container}>
-      <Text style={{fontSize: 40, padding: 30 }}>Register</Text>
+      <Text style={{fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>Register</Text>
       <Text style={styles.inputText}>Enter Name:</Text>
       <TextInput 
         placeholder='e.g. John Doe'
@@ -54,11 +58,13 @@ export default function Register({ navigation }) {
     </SafeAreaView>
     <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
+        // onPress={() => {
+        //   navigation.navigate("Home");
+        // }}
+        // onPress={() => {addUser; navigation.navigate("Home")}}
+        onPress={addUser}
         underlayColor='#fff'>
-        <Text style={{fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
+        <Text style={{fontFamily: "Inter-Light", fontSize: 17, padding: 1 }}>CREATE ACCOUNT</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -76,6 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 8,
     margin: 10,
+    fontFamily: "Inter-Light", 
+    autoCapitalize: 'none'
   },
   image: {
     flex: 1,
@@ -95,7 +103,8 @@ const styles = StyleSheet.create({
     borderColor: '#fff'
   },
   inputText: {
-    fontFamily: 'Iowan Old Style', 
+    fontFamily: 'Inter-Light', 
     fontSize: 15,
+    autoCapitalize: 'none'
   }
 });
