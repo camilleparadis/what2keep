@@ -19,24 +19,26 @@ app.listen(process.env.PORT || port, () => {
 
 // create an item for a given user
 app.post("/user-items", async (req, res) => {
-  const item = req.body;
-  const { userId } = req.query;
+  const { userId, category, location, info, image } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
   } else {
     // user signed in so add the new item
     try {
-      await dbCalls.addItem(userId, item);
-      res.status(204).end();
+      if (await dbCalls.addItem(userId, category, location, info, image)) {
+        res.status(204).end();
+      } else {
+        // if it failed somewhere but not an error///
+        res.status(400).end();
+      }
     } catch (error) {
       res.status(400).end();
     }
   }
 });
 
-// TODO: post for making a user
-// create an item for a given user
+// post for making a user
 app.post("/users", async (req, res) => {
   const { email, password, name } = req.body;
   // const bod = req.body;
@@ -81,7 +83,7 @@ app.get("/user-items", async (req, res) => {
   } else {
     // user signed in so send all their items
     try {
-      const result = await dbCalls.getUserItems();
+      const result = await dbCalls.getItem();
       res.send(result).status(200).end();
     } catch (error) {
       res.status(404).end();

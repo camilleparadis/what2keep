@@ -186,7 +186,7 @@ test("Testing update a user that DOESN'T exists", async () => {
       undefined,
     );
   } catch (error) {
-    expect(error).toEqual(new Error("BadUpdateException"));
+    expect(error).toEqual(new Error("BadUserUpdateException"));
   }
 });
 
