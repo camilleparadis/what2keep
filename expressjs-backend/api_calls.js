@@ -83,22 +83,47 @@ app.get("/users/:email", async (req, res) => {
 });
 
 // read the items of a given user (or all )
-app.get("/user-items/:userId/:itemId?", async (req, res) => {
-  // const { userId, itemId } = req.body;
-  const userId = req.params["userId"];
-  const itemId = req.params["itemId"];
-  // console.log("userId: " + userId);
-  // console.log("itemId: " + itemId);
+app.get(
+  "/user-items/:userId/:itemId?/:usageUpTo?/:category?",
+  async (req, res) => {
+    // const { userId, itemId } = req.body;
+    const userId = req.params["userId"];
+    const itemId = req.params["itemId"];
+    const usageUpTo = req.params["usageUpTo"];
+    const category = req.params["category"];
+    console.log("userId: " + userId);
+    console.log("itemId: " + itemId);
+    console.log("usageUpTo: " + usageUpTo);
+    console.log("category: " + category);
 
-  // reading a specific item OR all for a user depending on
-  //  if itemId was supplied
-  try {
-    const result = await dbCalls.getItem(userId, itemId);
-    res.send(result).status(200).end();
-  } catch (error) {
-    res.status(404).end();
-  }
-});
+    // reading a specific item OR all for a user depending on
+    //  if itemId was supplied
+    if (usageUpTo != undefined && usageUpTo != "undefined") {
+      console.log("usage query");
+      try {
+        const result = await dbCalls.queryItems(userId, usageUpTo);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    } else if (category != undefined && category != "undefined") {
+      console.log("category query");
+      try {
+        const result = await dbCalls.inCategoryItems(userId, category);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    } else {
+      try {
+        const result = await dbCalls.getItem(userId, itemId);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    }
+  },
+);
 
 // // read a particular item
 // app.get("/user-items", async (req, res) => {

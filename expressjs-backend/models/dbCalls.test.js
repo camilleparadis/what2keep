@@ -286,6 +286,54 @@ test("Testing read a specific item", async () => {
   expect(res).toEqual(item);
 });
 
+// R query
+test("Testing usage query", async () => {
+  // update the item
+  // to get a specific item need the itemId, and the way to get that is to have the item
+  //  the way to do this is to get all the items and use that to get an id to then check from there
+  //  (this should be the way it is executed in the app)
+  const start = await myFunctions.getUsers(undefined, email);
+  const item = await myFunctions.getItem(start._id, undefined);
+  const res = await myFunctions.queryItems(start._id, 5);
+  expect(res).toEqual(item);
+});
+
+// R query
+test("Testing query a nonexistant item", async () => {
+  try {
+    // read the item
+    // need to get the id first
+    const start = await myFunctions.getUsers(undefined, email);
+    await myFunctions.queryItems(start._id, 1);
+  } catch (error) {
+    expect(error).toEqual(new Error("QueryFailedException"));
+  }
+});
+
+// R category
+test("Testing category read", async () => {
+  // update the item
+  // to get a specific item need the itemId, and the way to get that is to have the item
+  //  the way to do this is to get all the items and use that to get an id to then check from there
+  //  (this should be the way it is executed in the app)
+  const start = await myFunctions.getUsers(undefined, email);
+  const item = await myFunctions.getItem(start._id, undefined);
+  const res = await myFunctions.inCategoryItems(start._id, "cooking");
+  expect(res).toEqual(item);
+});
+
+// R category
+test("Testing read a nonexistant category", async () => {
+  try {
+    // read the item
+    // need to get the id first
+    const start = await myFunctions.getUsers(undefined, email);
+    await myFunctions.inCategoryItems(start._id, "flying");
+  } catch (error) {
+    expect(error).toEqual(new Error("CategoryNotFoundException"));
+  }
+});
+
 // U
 test("Testing update an item", async () => {
   // update the item
