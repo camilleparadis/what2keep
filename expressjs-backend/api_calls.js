@@ -60,10 +60,7 @@ app.post("/users", async (req, res) => {
     const m = await dbCalls.addUser(email, password, name);
     // console.log(m);
     if (m) {
-      res
-        .send("testing2: " + email + " " + password + " " + name)
-        .status(204)
-        .end();
+      res.send(m._id).status(204).end();
     } else {
       res.status(400).end();
     }
@@ -72,19 +69,20 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// read all the current users
-app.get("/users", async (req, res) => {
-  console.log("trying to get all users");
-  const { userId } = req.body;
+// read from the current users
+app.get("/users/:email", async (req, res) => {
+  // console.log("trying to get all users");
+  // const { userId } = req.body;
+  const email = req.params["email"];
   try {
-    const result = await dbCalls.getUsers(userId);
-    res.send(result).status(200).end();
+    const result = await dbCalls.getUsers(undefined, email);
+    res.send(result._id).status(200).end();
   } catch (error) {
     res.status(404).end();
   }
 });
 
-// read the items of a given user
+// read the items of a given user (or all )
 app.get("/user-items/:userId/:itemId?", async (req, res) => {
   // const { userId, itemId } = req.body;
   const userId = req.params["userId"];
