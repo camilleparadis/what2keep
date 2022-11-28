@@ -128,7 +128,7 @@ async function deleteUser(userId, email) {
 
 // C
 // just create a 1 item
-async function addItem(userId, category, location, info, image) {
+async function addItem(userId, category, location, info, image, name, usage) {
   const itemModel = getDbConnection().model("Item", ItemSchema);
   try {
     const itemToAdd = new itemModel({
@@ -137,6 +137,8 @@ async function addItem(userId, category, location, info, image) {
       location,
       info,
       image,
+      name,
+      usage,
     });
     const savedItem = await itemModel.insertMany(itemToAdd);
     return savedItem[0];
@@ -172,7 +174,16 @@ async function getItem(userId, itemId) {
 
 // U
 // update a single item
-async function updateItem(userId, itemId, category, location, info, image) {
+async function updateItem(
+  userId,
+  itemId,
+  category,
+  location,
+  info,
+  image,
+  name,
+  usage,
+) {
   const itemModel = getDbConnection().model("Item", ItemSchema);
   try {
     return await itemModel.updateOne(
@@ -182,6 +193,8 @@ async function updateItem(userId, itemId, category, location, info, image) {
         location: location ? location : itemModel.find(itemId).location,
         info: info ? info : itemModel.find(itemId).info,
         image: image ? image : itemModel.find(itemId).image,
+        name: name ? name : itemModel.find(itemId).name,
+        usage: usage ? usage : itemModel.find(itemId).usage,
       },
     );
   } catch (error) {

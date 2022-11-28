@@ -7,6 +7,11 @@ const ItemSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     category: {
       type: String,
       required: true,
@@ -23,7 +28,11 @@ const ItemSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "",
-    }, // TODO: add a usage int to be used for sorting in a read
+    },
+    usage: {
+      type: Number,
+      required: true,
+    },
   },
   { collection: "Item" },
 );

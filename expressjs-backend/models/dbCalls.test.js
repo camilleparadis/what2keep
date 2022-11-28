@@ -201,16 +201,20 @@ test("Testing add an item", async () => {
     start._id,
     "cooking", //category
     "home", // location
-    "frying pan", // info
+    "favorite frying pan", // info
     "stand in for image", // image
+    "frying pan", // name
+    5, // usage
   );
   expect(res).toEqual(
     expect.objectContaining({
       userId: start.id,
       category: "cooking",
       location: "home",
-      info: "frying pan",
+      info: "favorite frying pan",
       image: "stand in for image",
+      name: "frying pan",
+      usage: 5,
     }),
   );
 });
@@ -238,8 +242,10 @@ test("Testing read all items from user 1", async () => {
       userId: start.id,
       category: "cooking",
       location: "home",
-      info: "frying pan",
+      info: "favorite frying pan",
       image: "stand in for image",
+      name: "frying pan",
+      usage: 5,
     }),
   );
 });

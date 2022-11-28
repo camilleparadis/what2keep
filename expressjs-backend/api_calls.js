@@ -19,14 +19,24 @@ app.listen(process.env.PORT || port, () => {
 
 // create an item for a given user
 app.post("/user-items", async (req, res) => {
-  const { userId, category, location, info, image } = req.body;
+  const { userId, category, location, info, image, name, usage } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end(); /// may not be necessary
   } else {
     // user signed in so add the new item
     try {
-      if (await dbCalls.addItem(userId, category, location, info, image)) {
+      if (
+        await dbCalls.addItem(
+          userId,
+          category,
+          location,
+          info,
+          image,
+          name,
+          usage,
+        )
+      ) {
         res.status(204).end();
       } else {
         // if it failed somewhere but not an error///
@@ -75,8 +85,12 @@ app.get("/users", async (req, res) => {
 });
 
 // read the items of a given user
-app.get("/user-items", async (req, res) => {
-  const { userId, itemId } = req.body;
+app.get("/user-items/:userId/:itemId?", async (req, res) => {
+  // const { userId, itemId } = req.body;
+  const userId = req.params["userId"];
+  const itemId = req.params["itemId"];
+  // console.log("userId: " + userId);
+  // console.log("itemId: " + itemId);
 
   // reading a specific item OR all for a user depending on
   //  if itemId was supplied
@@ -108,14 +122,24 @@ app.get("/user-items", async (req, res) => {
 
 // update a particular item
 app.patch("/user-items", async (req, res) => {
-  const { userId, itemId, category, location, info, image } = req.body;
+  const { userId, itemId, category, location, info, image, name, usage } =
+    req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
   } else {
     // user signed in so modify the item
     try {
-      await dbCalls.updateItem(userId, itemId, category, location, info, image);
+      await dbCalls.updateItem(
+        userId,
+        itemId,
+        category,
+        location,
+        info,
+        image,
+        name,
+        usage,
+      );
       res.status(204).end();
     } catch (error) {
       res.status(400).end();
