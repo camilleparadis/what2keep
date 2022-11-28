@@ -104,6 +104,7 @@ async function updateUser(userId, email, password, name) {
 }
 
 // D
+// TODO: would eventually want to have it delete every item associated with the user too
 async function deleteUser(userId, email) {
   // deletes a user given the id or email
   const userModel = getDbConnection().model("User", UserSchema);
@@ -153,13 +154,14 @@ async function getItem(userId, itemId) {
   if (itemId) {
     // get a particular item
     try {
-      return (await itemModel.find({ _id: itemId }))[0];
+      // ensures only the correct user can access as well
+      return (await itemModel.find({ _id: itemId, userId: userId }))[0];
     } catch (error) {
       throw new Error("ItemNotFoundException");
     }
   } else {
     // get every item for this user
-    const res = await userModel.find({ userId: userId });
+    const res = await itemModel.find({ userId: userId });
     if (res[0]) {
       return res;
     } else {
@@ -170,11 +172,11 @@ async function getItem(userId, itemId) {
 
 // U
 // update a single item
-async function updateItem(itemId, category, location, info, image) {
+async function updateItem(userId, itemId, category, location, info, image) {
   const itemModel = getDbConnection().model("Item", ItemSchema);
   try {
     return await itemModel.updateOne(
-      { _id: itemId },
+      { _id: itemId, userId: userId },
       {
         category: category ? category : itemModel.find(itemId).category,
         location: location ? location : itemModel.find(itemId).location,
@@ -189,10 +191,10 @@ async function updateItem(itemId, category, location, info, image) {
 
 // D
 // delete a single item based on itemId
-async function deleteItem(itemId) {
+async function deleteItem(userId, itemId) {
   const itemModel = getDbConnection().model("Item", ItemSchema);
   try {
-    return await itemModel.deleteOne({ _id: itemId });
+    return await itemModel.deleteOne({ _id: itemId, userId: userId });
   } catch (error) {
     throw new Error("DeleteItemException");
   }
@@ -223,6 +225,10 @@ async function dc() {
   mongoose.disconnect();
 }
 
+exports.addItem = addItem;
+exports.getItem = getItem;
+exports.updateItem = updateItem;
+exports.deleteItem = deleteItem;
 exports.setConnection = setConnection;
 exports.getDbConnection = getDbConnection;
 exports.dc = dc;

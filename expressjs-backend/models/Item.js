@@ -23,7 +23,7 @@ const ItemSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "",
-    },
+    }, // TODO: add a usage int to be used for sorting in a read
   },
   { collection: "Item" },
 );

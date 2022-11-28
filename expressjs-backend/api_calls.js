@@ -22,7 +22,7 @@ app.post("/user-items", async (req, res) => {
   const { userId, category, location, info, image } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
-    res.status(401).end();
+    res.status(401).end(); /// may not be necessary
   } else {
     // user signed in so add the new item
     try {
@@ -76,51 +76,46 @@ app.get("/users", async (req, res) => {
 
 // read the items of a given user
 app.get("/user-items", async (req, res) => {
-  const { userId } = req.query;
-  if (userId === undefined) {
-    // if there was an error and the user isn't signed in
-    res.status(401).end();
-  } else {
-    // user signed in so send all their items
-    try {
-      const result = await dbCalls.getItem();
-      res.send(result).status(200).end();
-    } catch (error) {
-      res.status(404).end();
-    }
+  const { userId, itemId } = req.body;
+
+  // reading a specific item OR all for a user depending on
+  //  if itemId was supplied
+  try {
+    const result = await dbCalls.getItem(userId, itemId);
+    res.send(result).status(200).end();
+  } catch (error) {
+    res.status(404).end();
   }
 });
 
-// read a particular item
-app.get("/user-items", async (req, res) => {
-  const { itemId } = req.query;
-  const { userId } = req.query;
-  if (userId === undefined) {
-    // if there was an error and the user isn't signed in
-    res.status(401).end();
-  } else {
-    // user signed in so get the item
-    try {
-      await dbCalls.getItem(userId, itemId);
-      res.status(204).end();
-    } catch (error) {
-      res.status(400).end();
-    }
-  }
-});
+// // read a particular item
+// app.get("/user-items", async (req, res) => {
+//   const { itemId } = req.query;
+//   const { userId } = req.query;
+//   if (userId === undefined) {
+//     // if there was an error and the user isn't signed in
+//     res.status(401).end();
+//   } else {
+//     // user signed in so get the item
+//     try {
+//       await dbCalls.getItem(userId, itemId);
+//       res.status(204).end();
+//     } catch (error) {
+//       res.status(400).end();
+//     }
+//   }
+// });
 
 // update a particular item
 app.patch("/user-items", async (req, res) => {
-  const { itemId } = req.query;
-  const newItem = req.body;
-  const { userId } = req.query;
+  const { userId, itemId, category, location, info, image } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
   } else {
     // user signed in so modify the item
     try {
-      await dbCalls.updateItem(userId, itemId, newItem);
+      await dbCalls.updateItem(userId, itemId, category, location, info, image);
       res.status(204).end();
     } catch (error) {
       res.status(400).end();
@@ -162,8 +157,7 @@ app.delete("/users", async (req, res) => {
 
 // delete a particular item
 app.delete("/user-items", async (req, res) => {
-  const { itemId } = req.query;
-  const { userId } = req.query;
+  const { userId, itemId } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
