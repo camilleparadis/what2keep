@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const UserSchema = require("./User");
-const Item = require("./Item");
+const ItemSchema = require("./Item");
 
 dotenv.config();
-
 
 let dbConnection;
 
@@ -26,7 +25,6 @@ function getDbConnection() {
 
 /// not 100% if we need this for production/ nontest environment?
 // mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
-
 
 async function testing() {
   return true;
@@ -101,11 +99,12 @@ async function updateUser(userId, email, password, name) {
       },
     );
   } catch (error) {
-    throw new Error("BadUpdateException");
+    throw new Error("BadUserUpdateException");
   }
 }
 
 // D
+// TODO: would eventually want to have it delete every item associated with the user too
 async function deleteUser(userId, email) {
   // deletes a user given the id or email
   const userModel = getDbConnection().model("User", UserSchema);
@@ -125,24 +124,101 @@ async function deleteUser(userId, email) {
   }
 }
 
+// -- ITEM --
+
+// C
+// just create a 1 item
+async function addItem(userId, category, location, info, image, name, usage) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  try {
+    const itemToAdd = new itemModel({
+      userId,
+      category,
+      location,
+      info,
+      image,
+      name,
+      usage,
+    });
+    const savedItem = await itemModel.insertMany(itemToAdd);
+    return savedItem[0];
+  } catch (error) {
+    throw new Error("AddItemError");
+  }
+}
+
+// R - must be only able to read if they are yours
+// read a single item
+// read all the items from a user
+/// probably more later but those are core
+async function getItem(userId, itemId) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  if (itemId) {
+    // get a particular item
+    try {
+      // ensures only the correct user can access as well
+      return (await itemModel.find({ _id: itemId, userId: userId }))[0];
+    } catch (error) {
+      throw new Error("ItemNotFoundException");
+    }
+  } else {
+    // get every item for this user
+    const res = await itemModel.find({ userId: userId });
+    if (res[0]) {
+      return res;
+    } else {
+      throw new Error("NoItemsFoundException");
+    }
+  }
+}
+
+// U
+// update a single item
+async function updateItem(
+  userId,
+  itemId,
+  category,
+  location,
+  info,
+  image,
+  name,
+  usage,
+) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  try {
+    return await itemModel.updateOne(
+      { _id: itemId, userId: userId },
+      {
+        category: category ? category : itemModel.find(itemId).category,
+        location: location ? location : itemModel.find(itemId).location,
+        info: info ? info : itemModel.find(itemId).info,
+        image: image ? image : itemModel.find(itemId).image,
+        name: name ? name : itemModel.find(itemId).name,
+        usage: usage ? usage : itemModel.find(itemId).usage,
+      },
+    );
+  } catch (error) {
+    throw new Error("BadItemUpdateException");
+  }
+}
+
+// D
+// delete a single item based on itemId
+async function deleteItem(userId, itemId) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  try {
+    return await itemModel.deleteOne({ _id: itemId, userId: userId });
+  } catch (error) {
+    throw new Error("DeleteItemException");
+  }
+}
+
 // async function registerUser(user) {
 //   return true;
 // }
 
 //
 // async function loginUser(user) {
-//   return true;
-// }
-
-// async function addItem() {
-//   return true;
-// }
-
-// async function updateItem() {
-//   return true;
-// }
-
-// async function deleteItem() {
 //   return true;
 // }
 
@@ -162,6 +238,10 @@ async function dc() {
   mongoose.disconnect();
 }
 
+exports.addItem = addItem;
+exports.getItem = getItem;
+exports.updateItem = updateItem;
+exports.deleteItem = deleteItem;
 exports.setConnection = setConnection;
 exports.getDbConnection = getDbConnection;
 exports.dc = dc;
