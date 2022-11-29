@@ -5,6 +5,7 @@ import axios from "axios";
 export default function AddItem({ navigation }) {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
+  //
   // const [collection, setCollection] = useState("");
   // NO CLUE WHY THIS DOESN'T WORK????
   // const testingConnection = () => {
@@ -31,7 +32,7 @@ export default function AddItem({ navigation }) {
   async function addItem(){
     try{
       const response = await axios.post("https://what2keep.azurewebsites.net/users-items")
-        
+
     }
   }
 
