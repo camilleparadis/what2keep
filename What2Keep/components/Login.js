@@ -17,7 +17,9 @@ export default function Login({ navigation }) {
       });
       console.log(response.data);
       // let result = findUserByEmail(response.data.email)
-      navigation.navigate("Home");
+      navigation.navigate("Home", {
+        userIDkey: response.data,
+      });
       return result;
     } catch (error) {
       console.log(error);

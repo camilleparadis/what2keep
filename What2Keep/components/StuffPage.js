@@ -12,7 +12,7 @@ export default function StuffPage({ navigation, route }) {
         items: items
     });
       console.log(response.data);
-      return response;
+      return response.data;
   } catch (error) {
     console.log(error);
     return false;
