@@ -17,6 +17,7 @@ app.listen(process.env.PORT || port, () => {
   console.log("REST API is listening.");
 });
 
+// C
 // create an item for a given user
 app.post("/user-items", async (req, res) => {
   const { userId, category, location, info, image, name, usage } = req.body;
@@ -48,6 +49,7 @@ app.post("/user-items", async (req, res) => {
   }
 });
 
+// C
 // post for making a user
 app.post("/users", async (req, res) => {
   const { email, password, name } = req.body;
@@ -69,6 +71,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// R
 // read from the current users
 app.get("/users/:email", async (req, res) => {
   // console.log("trying to get all users");
@@ -82,23 +85,51 @@ app.get("/users/:email", async (req, res) => {
   }
 });
 
+// R
 // read the items of a given user (or all )
-app.get("/user-items/:userId/:itemId?", async (req, res) => {
-  // const { userId, itemId } = req.body;
-  const userId = req.params["userId"];
-  const itemId = req.params["itemId"];
-  // console.log("userId: " + userId);
-  // console.log("itemId: " + itemId);
+app.get(
+  "/user-items/:userId/:itemId?/:usageUpTo?/:category?",
+  async (req, res) => {
+    // const { userId, itemId } = req.body;
+    const userId = req.params["userId"];
+    const itemId = req.params["itemId"];
+    const usageUpTo = req.params["usageUpTo"];
+    const category = req.params["category"];
+    // console.log("userId: " + userId);
+    // console.log("itemId: " + itemId);
+    // console.log("usageUpTo: " + usageUpTo);
+    // console.log("category: " + category);
 
-  // reading a specific item OR all for a user depending on
-  //  if itemId was supplied
-  try {
-    const result = await dbCalls.getItem(userId, itemId);
-    res.send(result).status(200).end();
-  } catch (error) {
-    res.status(404).end();
-  }
-});
+    if (usageUpTo != undefined && usageUpTo != "undefined") {
+      // console.log("usage query");
+      // if querying based on useage
+      try {
+        const result = await dbCalls.queryItems(userId, usageUpTo);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    } else if (category != undefined && category != "undefined") {
+      // console.log("category query");
+      // if getting all items from a category
+      try {
+        const result = await dbCalls.inCategoryItems(userId, category);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    } else {
+      // reading a specific item OR all for a user depending on
+      //  if itemId was supplied
+      try {
+        const result = await dbCalls.getItem(userId, itemId);
+        res.send(result).status(200).end();
+      } catch (error) {
+        res.status(404).end();
+      }
+    }
+  },
+);
 
 // // read a particular item
 // app.get("/user-items", async (req, res) => {
@@ -118,6 +149,7 @@ app.get("/user-items/:userId/:itemId?", async (req, res) => {
 //   }
 // });
 
+// U
 // update a particular item
 app.patch("/user-items", async (req, res) => {
   const { userId, itemId, category, location, info, image, name, usage } =
@@ -145,6 +177,7 @@ app.patch("/user-items", async (req, res) => {
   }
 });
 
+// U
 // update a particular user
 app.patch("/users", async (req, res) => {
   const { userId, email, password, name } = req.body;
@@ -161,6 +194,7 @@ app.patch("/users", async (req, res) => {
   }
 });
 
+// D
 // delete a particular user
 app.delete("/users", async (req, res) => {
   const { userId } = req.body;
@@ -177,6 +211,7 @@ app.delete("/users", async (req, res) => {
   }
 });
 
+// D
 // delete a particular item
 app.delete("/user-items", async (req, res) => {
   const { userId, itemId } = req.body;

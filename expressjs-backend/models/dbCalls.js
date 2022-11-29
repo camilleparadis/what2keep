@@ -172,6 +172,36 @@ async function getItem(userId, itemId) {
   }
 }
 
+// R
+// specialized query returning all items with usage up to the given
+async function queryItems(userId, usageUpTo) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  const res = await itemModel.find({
+    userId: userId,
+    usage: { $lte: usageUpTo },
+  });
+  if (res[0]) {
+    return res;
+  } else {
+    throw new Error("QueryFailedException");
+  }
+}
+
+// R
+// specialized query returning all items in a given category
+async function inCategoryItems(userId, category) {
+  const itemModel = getDbConnection().model("Item", ItemSchema);
+  const res = await itemModel.find({
+    userId: userId,
+    category: category,
+  });
+  if (res[0]) {
+    return res;
+  } else {
+    throw new Error("CategoryNotFoundException");
+  }
+}
+
 // U
 // update a single item
 async function updateItem(
@@ -238,6 +268,8 @@ async function dc() {
   mongoose.disconnect();
 }
 
+exports.queryItems = queryItems;
+exports.inCategoryItems = inCategoryItems;
 exports.addItem = addItem;
 exports.getItem = getItem;
 exports.updateItem = updateItem;
