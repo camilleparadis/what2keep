@@ -2,6 +2,12 @@
 
 What2Keep is a mobile app for iOS and Android focused on the wellness of having stuff, specifically keeping track of it and getting rid of it.
 
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#how-to-use)
+- [Deployment](#ci--cd)
+- [UI Prototype](#UI-Prototype)
+
 ## Installation
 
 Download all of the source code, and in both ./What2Keep and ./expressjs-backend, install with the node package manager
@@ -43,11 +49,14 @@ Expo should launch, and a QR Code should appear to scan with a mobile phone. Alt
 > example of what expected output when running frontend looks like
 From there you are free to start using the app!
 
-### CI / CD
+## CI / CD
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/what2keep/what2keep/Frontend%20Checks?label=Frontend%20Checks&style=for-the-badge) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/what2keep/what2keep/Build%20and%20Deploy%20-%20Backend?label=Bulid%20and%20Deploy%20-%20Backend&style=for-the-badge)
 
-**To access the web deployment for our backend, use this link**
-https://what2keep.azurewebsites.net/
+**To access the Azure deployment for our backend, use this link:**
+[What2Keep Backend](https://what2keep.azurewebsites.net/)
+
+## UI Prototype
+[Click Here to View to the UI Prototype (links to figma)](https://www.figma.com/proto/sXftcp87dF9KisXNEv8noA/UI-Prototype%2FStoryboarding?scaling=scale-down&page-id=0%3A1&starting-point-node-id=4%3A2&node-id=4%3A2) last edited: 11/14/2022
 
 ## Contributing
 What2Keep utilizes the Airbnb code style, found here: https://airbnb.io/javascript/react/
