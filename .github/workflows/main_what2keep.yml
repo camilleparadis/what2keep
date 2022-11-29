@@ -6,14 +6,16 @@ name: Build and Deploy - Backend
 on:
   schedule:
     - cron: "0 0 * * *"
-  push:
+  pull_request:
     branches:
       - main
+    types: [closed]
   workflow_dispatch:
     
 
 jobs:
   build:
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     
     defaults:
