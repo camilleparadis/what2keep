@@ -1,4 +1,3 @@
-// import {  } from "./index";
 const myFunctions = require("./dbCalls");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const UserSchema = require("./User");
@@ -14,14 +13,6 @@ var name;
 var email2;
 var password2;
 var name2;
-// beforeAll(() => {
-//   email = "test@email.com";
-//   password = "passphrase";
-//   name = "Tim2";
-//   email2 = "test2@email.com";
-//   password2 = "secret";
-//   name2 = "Tester2";
-// });
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -50,26 +41,8 @@ afterAll(async () => {
   await conn.dropDatabase();
   await conn.close();
   await mongoServer.stop();
+  return myFunctions.dc();
 });
-
-// test("Testing portfolio -- create empty portfolio", () => {
-//   expect(portfolio.currentPortfolio).toEqual({});
-// });
-
-// test("Testing testing", async () => {
-//   const res = await myFunctions.testing();
-//   expect(res).toBe(true);
-// });
-
-// test("Testing registration", async () => {
-//   const res = await myFunctions.testing();
-//   expect(res).toBe(true);
-// });
-
-// test("Testing login", async () => {
-//   const res = await myFunctions.testing();
-//   expect(res).toBe(true);
-// });
 
 test("Testing get all users when there are none", async () => {
   // R
@@ -151,10 +124,8 @@ test("Testing get an user that DOESN'T exists by email", async () => {
 test("Testing get all users", async () => {
   // R
   const res = await myFunctions.getUsers();
-  expect(res[0]).toEqual(expect.objectContaining({ email, password, name })); // TODO: make dynamic to always get the end one?
+  expect(res[0]).toEqual(expect.objectContaining({ email, password, name }));
 });
-
-//TODO: test where there are no users
 
 test("Testing update an user", async () => {
   // U
@@ -442,32 +413,4 @@ test("Testing delete an user by id that DOESN'T EXIST", async () => {
   } catch (error) {
     expect(error).toEqual(new Error("DeleteUserException"));
   }
-});
-
-test("Testing add an IMAGE", async () => {
-  // upload the image
-
-  // get the image
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
-});
-
-test("Testing update an IMAGE", async () => {
-  // change the image
-
-  // get the changed image
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
-});
-
-test("Testing delete an IMAGE", async () => {
-  // delete the image
-
-  // try to get the image (and fail)
-  const res = await myFunctions.testing();
-  expect(res).toBe(true);
-});
-
-afterAll(() => {
-  return myFunctions.dc();
 });

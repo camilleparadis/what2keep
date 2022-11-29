@@ -23,7 +23,7 @@ app.post("/user-items", async (req, res) => {
   const { userId, category, location, info, image, name, usage } = req.body;
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
-    res.status(401).end(); /// may not be necessary
+    res.status(401).end();
   } else {
     // user signed in so add the new item
     try {
@@ -40,7 +40,7 @@ app.post("/user-items", async (req, res) => {
       ) {
         res.status(204).end();
       } else {
-        // if it failed somewhere but not an error///
+        // if it failed somewhere but not an error
         res.status(400).end();
       }
     } catch (error) {
@@ -53,14 +53,9 @@ app.post("/user-items", async (req, res) => {
 // post for making a user
 app.post("/users", async (req, res) => {
   const { email, password, name } = req.body;
-  // const bod = req.body;
-  // const email = bod.email;
-  // const password = bod.password;
-  // const name = bod.name;
   // add new user
   try {
     const m = await dbCalls.addUser(email, password, name);
-    // console.log(m);
     if (m) {
       res.send(m._id).status(204).end();
     } else {
@@ -73,10 +68,9 @@ app.post("/users", async (req, res) => {
 
 // R
 // read from the current users
-app.get("/users/:email", async (req, res) => {
-  // console.log("trying to get all users");
-  // const { userId } = req.body;
+app.get("/users/:email?", async (req, res) => {
   const email = req.params["email"];
+  // if email is given then will look for that user otherwise gets all users (which is perhaps not necessary)
   try {
     const result = await dbCalls.getUsers(undefined, email);
     res.send(result._id).status(200).end();
@@ -90,18 +84,12 @@ app.get("/users/:email", async (req, res) => {
 app.get(
   "/user-items/:userId/:itemId?/:usageUpTo?/:category?",
   async (req, res) => {
-    // const { userId, itemId } = req.body;
     const userId = req.params["userId"];
     const itemId = req.params["itemId"];
     const usageUpTo = req.params["usageUpTo"];
     const category = req.params["category"];
-    // console.log("userId: " + userId);
-    // console.log("itemId: " + itemId);
-    // console.log("usageUpTo: " + usageUpTo);
-    // console.log("category: " + category);
 
     if (usageUpTo != undefined && usageUpTo != "undefined") {
-      // console.log("usage query");
       // if querying based on useage
       try {
         const result = await dbCalls.queryItems(userId, usageUpTo);
@@ -110,7 +98,6 @@ app.get(
         res.status(404).end();
       }
     } else if (category != undefined && category != "undefined") {
-      // console.log("category query");
       // if getting all items from a category
       try {
         const result = await dbCalls.inCategoryItems(userId, category);
@@ -131,26 +118,9 @@ app.get(
   },
 );
 
-// // read a particular item
-// app.get("/user-items", async (req, res) => {
-//   const { itemId } = req.query;
-//   const { userId } = req.query;
-//   if (userId === undefined) {
-//     // if there was an error and the user isn't signed in
-//     res.status(401).end();
-//   } else {
-//     // user signed in so get the item
-//     try {
-//       await dbCalls.getItem(userId, itemId);
-//       res.status(204).end();
-//     } catch (error) {
-//       res.status(400).end();
-//     }
-//   }
-// });
-
 // U
 // update a particular item
+// userId and itemId are required the others may be undefined
 app.patch("/user-items", async (req, res) => {
   const { userId, itemId, category, location, info, image, name, usage } =
     req.body;

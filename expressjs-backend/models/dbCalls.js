@@ -12,7 +12,7 @@ function setConnection(newConn) {
   return dbConnection;
 }
 
-// TODO: ASK BJ ABOUT HOW CAN COVER THIS IN TEST WHEN USING MEMORY FOR TESTING????
+// not covered with the testing due to using the local memory database for testing purposes
 function getDbConnection() {
   if (!dbConnection) {
     dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
@@ -25,10 +25,6 @@ function getDbConnection() {
 
 /// not 100% if we need this for production/ nontest environment?
 // mongoose.connect(process.env.MONGODB_URI).catch((error) => console.log(error));
-
-async function testing() {
-  return true;
-}
 
 // C
 async function addUser(email, password, name) {
@@ -150,7 +146,6 @@ async function addItem(userId, category, location, info, image, name, usage) {
 // R - must be only able to read if they are yours
 // read a single item
 // read all the items from a user
-/// probably more later but those are core
 async function getItem(userId, itemId) {
   const itemModel = getDbConnection().model("Item", ItemSchema);
   if (itemId) {
@@ -243,27 +238,6 @@ async function deleteItem(userId, itemId) {
   }
 }
 
-// async function registerUser(user) {
-//   return true;
-// }
-
-//
-// async function loginUser(user) {
-//   return true;
-// }
-
-// async function addImage() {
-//   return true;
-// }
-
-// async function updateImage() {
-//   return true;
-// }
-
-// async function deleteImage() {
-//   return true;
-// }
-
 async function dc() {
   mongoose.disconnect();
 }
@@ -281,4 +255,3 @@ exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.addUser = addUser;
 exports.getUsers = getUsers;
-exports.testing = testing;
