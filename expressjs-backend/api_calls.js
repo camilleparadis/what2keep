@@ -68,6 +68,7 @@ app.post("/users", async (req, res) => {
 
 // R
 // read from the current users
+// TODO: make an option to search by email AND password for login
 app.get("/users/:email?", async (req, res) => {
   const email = req.params["email"];
   // if email is given then will look for that user otherwise gets all users (which is perhaps not necessary)
