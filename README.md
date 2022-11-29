@@ -20,6 +20,12 @@ cd expressjs-backend
 npm install
 ```
 
+**Note** you may need to run 
+```bash 
+npm audit fix
+``` 
+to resolve a security vulnerability
+
 ## How to Use
 
 What2Keep runs on React Native and ExpoGo. Launching the app takes two steps
