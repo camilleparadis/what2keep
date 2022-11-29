@@ -1,4 +1,4 @@
-import { ImageBackground, Image, StyleSheet, Text, View, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, Button, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
@@ -24,29 +24,6 @@ export default function Login({ navigation }) {
       return false;
     }
   }
-  // async function getUsers() {
-  //   try {
-  //     const user_list = await axios.get("https://what2keep.azurewebsites.net/users", {
-  //       // email: email,
-  //       // password: password,
-  //     });
-  //     console.log(user_list)
-  //     let result = user_list.filter(user => user.email = email);
-  //     if (result){
-  //       return result
-  //     }
-  //     else{
-  //       return false
-  //     }
-  //     // console.log(foundUser['email']);
-  //     // navigation.navigate("Home");
-  //     // return foundUser;
-
-  //   } catch (error) {
-  //     console.log(error);
-  //     return false;
-  //   }
-  // }
 
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}

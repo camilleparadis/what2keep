@@ -28,6 +28,12 @@ export default function AddItem({ navigation }) {
   //       console.error(error);
   //     });
   // };
+  async function addItem(){
+    try{
+      const response = await axios.post("https://what2keep.azurewebsites.net/users-items")
+        
+    }
+  }
 
   return (
     <ImageBackground source = {require('../assets/itemBackground.png')}

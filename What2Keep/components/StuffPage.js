@@ -2,11 +2,22 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View, Image, TextInput, 
 import React, {useState} from "react";
 import {FAB} from 'react-native-elements';
 
-export default function StuffPage({ navigation }) {
-  const [items, setItems] = useState([
-    {name: 'brown scarf', description: 'in downstairs closet', key: 1},
-    {name: 'blue jeans', description: 'abercrombie, size 26', key: 2},
-  ]);
+export default function StuffPage({ navigation, route }) {
+  const userId = route.params;
+  const [items, setItems] = useState([""]);
+
+  async function getItem(userId) {
+    try{
+      const response = await axios.get("https://what2keep.azurewebsites.net/users-items/" + String(userId), {
+        items: items
+    });
+      console.log(response.data);
+      return response;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
   return (
     <ImageBackground source = {require('../assets/launchBackground.png')}
@@ -16,6 +27,7 @@ export default function StuffPage({ navigation }) {
 
   
       <ScrollView>
+        items = getItem(userId)
       { items.map((item) => {
         return (
         <View key={item.key}>
@@ -31,7 +43,11 @@ export default function StuffPage({ navigation }) {
         );
       })}
       </ScrollView>
-        <FAB style={{padding: 20}} onPress={() => {navigation.navigate("AddItem")}} title="Add Item"/>
+        <FAB style={{padding: 20}} onPress={() => 
+          {navigation.navigate("AddItem", {
+            userIDkey: userId
+          }
+          )}} title="Add Item"/>
       </View>
       </ImageBackground>
     );
@@ -77,22 +93,3 @@ const styles = StyleSheet.create({
     autoCapitalize: 'none',
   }
 });
-
-
-    {/* <View>
-      <Text style= {styles.inputText}>Your Items</Text>
-      <Button
-        title="GOTO ViewItem"
-        onPress={() => {
-          navigation.navigate("ViewItem");
-        }}
-      />
-      <Button
-        title="GOTO AddItem"
-        onPress={() => {
-          navigation.navigate("AddItem");
-        }}
-      />
-    </View>
-);
-} */}

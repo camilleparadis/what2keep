@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Image, ImageBackground,TouchableOpacity } from "react-native";
 import React from "react";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+  const {userIDkey} = route.params;
   return (
     <ImageBackground source = {require('../assets/homeBackground.png')}
     resizeMode = "cover"
@@ -17,7 +18,9 @@ export default function Home({ navigation }) {
       <TouchableOpacity
         style={styles.button1}
         onPress={() => {
-          navigation.navigate("StuffPage");
+          navigation.navigate("StuffPage", {
+            userIDkey: userIDkey
+          });
         }}
         underlayColor='#fff'>
         <Text style={styles.loginText}>View Your Stuff!</Text>

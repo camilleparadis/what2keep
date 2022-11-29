@@ -16,7 +16,9 @@ export default function Register({ navigation }) {
         password: password,
       });
       console.log(response.data);
-      navigation.navigate("Home");
+      navigation.navigate("Home", {
+        userIDkey: response.data,
+      });
       return response;
     } catch (error) {
       console.log(error);
