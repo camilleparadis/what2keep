@@ -51,13 +51,16 @@ export default function ViewItem({ route, navigation }) {
           <Text style={styles.inputText}>Item Name:</Text>
           <Text style={styles.item}>{item.name}</Text>
           <Text style={styles.inputText}>Item Description:</Text>
-          <Text style={styles.item}>{item.description}</Text>
+          <Text style={styles.item}>{item.info}</Text>
           <Text style={styles.inputText}>Item Category:</Text>
           <Text style={styles.item}>{item.category}</Text>
           <Text style={styles.inputText}>Item Location:</Text>
           <Text style={styles.item}>{item.location}</Text>
           <Text style={styles.inputText}>Item Image:</Text>
-          <Text style={styles.item}>{item.image}</Text>
+          <Image
+            source={{ uri: item.image }}
+            style={{ width: 150, height: 150 }}
+          />
           <Text style={styles.inputText}>Item Usage:</Text>
           <Text style={styles.item}>{item.usage}</Text>
         </View>
