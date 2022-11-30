@@ -1,23 +1,36 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View, Image, TextInput, SafeAreaView, TouchableOpacity, DatePickerAndroid } from "react-native";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {FAB} from 'react-native-elements';
+import axios from "axios";
 
 export default function StuffPage({ navigation, route }) {
   const userId = route.params;
   const [items, setItems] = useState([""]);
 
-  async function getItem(userId) {
-    try{
-      const response = await axios.get("https://what2keep.azurewebsites.net/users-items/" + String(userId), {
-        items: items
-    });
-      console.log(response.data);
-      return response.data;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
+
+//   async function getItem(userId) {
+//     try{
+//       const response = await axios.get("https://what2keep.azurewebsites.net/users-items/" + String(userId), {
+//         items: items
+//     });
+//       console.log(response.data);
+//       return response.data;
+//   } catch (error) {
+//     console.log(error);
+//     return false;
+//   }
+// }
+const getItems = () => {
+  axios
+    .get("https://what2keep.azurewebsites.net/users-items/" + userId)
+    .then((response) => {
+      setItems(response.data);
+      });
 }
+useEffect(() => {
+  // write your code here, it's like componentWillMount
+  getItems();
+}, [])
 
   return (
     <ImageBackground source = {require('../assets/launchBackground.png')}
@@ -27,7 +40,6 @@ export default function StuffPage({ navigation, route }) {
 
   
       <ScrollView>
-        items = getItem(userId)
       { items.map((item) => {
         return (
         <View key={item.key}>

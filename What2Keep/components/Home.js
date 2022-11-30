@@ -43,7 +43,7 @@ export default function Home({ route, navigation }) {
         style={styles.button1}
         onPress={() => {
           navigation.navigate("StuffPage", {
-            userIDkey: userIDkey
+            userIDkey: userId
           });
         }}
         underlayColor="#fff"
@@ -54,7 +54,9 @@ export default function Home({ route, navigation }) {
         <TouchableOpacity
           style={styles.bottomButton}
           onPress={() => {
-            navigation.navigate("Stats");
+            navigation.navigate("Stats", {
+              userIDkey: userId
+            });
           }}
           underlayColor="#fff"
         >
