@@ -89,6 +89,8 @@ app.get(
     const itemId = req.params["itemId"];
     const usageUpTo = req.params["usageUpTo"];
     const category = req.params["category"];
+    console.log("userId: " + userId);
+    console.log("itemId: " + itemId);
 
     if (usageUpTo != undefined && usageUpTo != "undefined") {
       // if querying based on useage

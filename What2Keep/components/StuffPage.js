@@ -1,66 +1,84 @@
-import { ImageBackground, ScrollView, StyleSheet, Text, View, Image, TextInput, SafeAreaView, TouchableOpacity, DatePickerAndroid } from "react-native";
-import React, {useState, useEffect} from "react";
-import {FAB} from 'react-native-elements';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  DatePickerAndroid,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { FAB } from "react-native-elements";
 import axios from "axios";
 
 export default function StuffPage({ navigation, route }) {
-  const userId = route.params;
+  const { userId } = route.params;
   const [items, setItems] = useState([""]);
 
-
-//   async function getItem(userId) {
-//     try{
-//       const response = await axios.get("https://what2keep.azurewebsites.net/users-items/" + String(userId), {
-//         items: items
-//     });
-//       console.log(response.data);
-//       return response.data;
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// }
-const getItems = () => {
-  axios
-    .get("https://what2keep.azurewebsites.net/users-items/" + userId)
-    .then((response) => {
-      setItems(response.data);
+  //   async function getItem(userId) {
+  //     try{
+  //       const response = await axios.get("https://what2keep.azurewebsites.net/users-items/" + String(userId), {
+  //         items: items
+  //     });
+  //       console.log(response.data);
+  //       return response.data;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // }
+  const getItems = () => {
+    axios
+      .get("http://10.144.34.37:5001/user-items/" + userId)
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-}
-useEffect(() => {
-  getItems();
-}, [])
+  };
+  useEffect(() => {
+    getItems();
+  }, []);
 
   return (
-    <ImageBackground source = {require('../assets/launchBackground.png')}
-  resizeMode = "cover"
-  style = {styles.image}>
-    <View style={styles.container}>
-
-  
-      <ScrollView>
-      { items.map((item) => {
-        return (
-        <View key={item.key}>
-          <TouchableOpacity 
-            // title={item.name}
-            style={styles.item}
-            onPress={() => {
-            navigation.navigate("ViewItem", {
-              itemKey : item,
+    <ImageBackground
+      source={require("../assets/launchBackground.png")}
+      resizeMode="cover"
+      style={styles.image}
+    >
+      <View style={styles.container}>
+        <ScrollView>
+          {items.map((item) => {
+            return (
+              <View key={item.key}>
+                <TouchableOpacity
+                  // title={item.name}
+                  style={styles.item}
+                  onPress={() => {
+                    navigation.navigate("ViewItem", {
+                      itemKey: item,
+                    });
+                  }}
+                >
+                  <Text style={styles.inputText}>{item.name}</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+        </ScrollView>
+        <FAB
+          style={{ padding: 20 }}
+          onPress={() => {
+            navigation.navigate("AddItem", {
+              userId: userId,
             });
-            }}>
-            <Text style={styles.inputText}>{item.name}</Text>
-          </TouchableOpacity>
-        </View>
-        );
-      })}
-      </ScrollView>
-        <FAB style={{padding: 20}} onPress={() => 
-          {navigation.navigate("AddItem", {
-            userId: userId
-          }
-          )}} title="Add Item"/>
+          }}
+          title="Add Item"
+        />
       </View>
     </ImageBackground>
   );
