@@ -61,24 +61,21 @@ useEffect(() => {
           }
           )}} title="Add Item"/>
       </View>
-      </ImageBackground>
-    );
-    }
-    
-
-
+    </ImageBackground>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'fff',
+    backgroundColor: "fff",
     paddingTop: 40,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   item: {
     marginTop: 24,
     padding: 30,
-    backgroundColor:'#F4BAA7',
+    backgroundColor: "#F4BAA7",
     fontSize: 24,
   },
   image: {
@@ -87,21 +84,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    width: '100%',
-    marginRight:40,
-    marginLeft:40,
-    marginTop:10,
-    paddingTop:10,
-    paddingBottom:10,
+    width: "100%",
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     padding: 40,
-    backgroundColor:'#fff',
-    borderRadius:10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff'
+    borderColor: "#fff",
   },
   inputText: {
-    fontFamily: 'Inter-thin', 
+    fontFamily: "Inter-thin",
     fontSize: 25,
-    autoCapitalize: 'none',
-  }
+    autoCapitalize: "none",
+  },
 });

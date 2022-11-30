@@ -43,7 +43,7 @@ export default function Home({ route, navigation }) {
         style={styles.button1}
         onPress={() => {
           navigation.navigate("StuffPage", {
-            userIDkey: userId
+            userId: userId,
           });
         }}
         underlayColor="#fff"
@@ -55,7 +55,7 @@ export default function Home({ route, navigation }) {
           style={styles.bottomButton}
           onPress={() => {
             navigation.navigate("Stats", {
-              userIDkey: userId
+              userId: userId,
             });
           }}
           underlayColor="#fff"
@@ -65,7 +65,9 @@ export default function Home({ route, navigation }) {
         <TouchableOpacity
           style={styles.bottomButton}
           onPress={() => {
-            navigation.navigate("Settings");
+            navigation.navigate("Settings", {
+              userId: userId,
+            });
           }}
           underlayColor="#fff"
         >

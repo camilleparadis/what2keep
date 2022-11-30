@@ -68,12 +68,12 @@ app.post("/users", async (req, res) => {
 
 // R
 // read from the current users
-// TODO: make an option to search by email AND password for login
-app.get("/users/:email?", async (req, res) => {
+app.get("/users/:email?/:password?", async (req, res) => {
   const email = req.params["email"];
-  // if email is given then will look for that user otherwise gets all users (which is perhaps not necessary)
+  const password = req.params["password"];
+  // if email and password are given then will look for that user otherwise gets all users (which is perhaps not necessary)
   try {
-    const result = await dbCalls.getUsers(undefined, email);
+    const result = await dbCalls.getUsers(undefined, email, password);
     res.send(result._id).status(200).end();
   } catch (error) {
     res.status(404).end();
