@@ -60,6 +60,7 @@ export default function StuffPage({ navigation, route }) {
                   style={styles.item}
                   onPress={() => {
                     navigation.navigate("ViewItem", {
+                      userId: userId,
                       itemKey: item,
                     });
                   }}
