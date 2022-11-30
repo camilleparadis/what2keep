@@ -23,7 +23,7 @@ export default function ViewItem({ route, navigation }) {
 
   const getItem = () => {
     axios
-      .get("https://what2keep.azurewebsites.net/users-items/" + itemId)
+      .get("https://what2keep.azurewebsites.net/users-items/" + userId + '/' + itemId)
       .then((response) => {
         console.log(response.data)
         setItem(response.data)
