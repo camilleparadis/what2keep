@@ -43,16 +43,10 @@ export default function AddItem({ route, navigation }) {
   //       console.error(error);
   //     });
   // };
-  async function addItem(){
-    try{
-      const response = await axios.post("https://what2keep.azurewebsites.net/users-items")
-
-    }
-  }
 
   const addingItem = async () => {
     axios
-      .post("https://what2keep.azurewebsites.net/user-items", {
+      .post("http://10.144.168.120:5001/users-items", {
         userId,
         category: category,
         location: location,

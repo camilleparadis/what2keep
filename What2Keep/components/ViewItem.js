@@ -7,11 +7,13 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function ViewItem({ route, navigation }) {
   const { userId } = route.params;
   const { itemId } = route.params;
+  const [item, setItem] = useState([""])
   // const [itemName, setItemName] = useState("");
   // const [description, setDescription] = useState("");
   // const [category, setCategory] = useState("");
@@ -24,6 +26,7 @@ export default function ViewItem({ route, navigation }) {
       .get("https://what2keep.azurewebsites.net/users-items/" + itemId)
       .then((response) => {
         console.log(response.data)
+        setItem(response.data)
         return response.data
         });
   }
@@ -39,6 +42,7 @@ export default function ViewItem({ route, navigation }) {
     >
 
     <ScrollView>
+      <View style={styles.attributes}>
     <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
         View Item
       </Text>
@@ -55,7 +59,7 @@ export default function ViewItem({ route, navigation }) {
       <Text style={styles.item}>{item.image}</Text>
       <Text style={styles.inputText}>Item Usage:</Text>
       <Text style={styles.item}>{item.usage}</Text>
-
+      </View>
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
@@ -109,6 +113,11 @@ const styles = StyleSheet.create({
     // alignItems: 'flex-end',
     justifyContent: "center",
   },
+  attributes: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   input: {
     backgroundColor: "#fff",
     padding: 8,
@@ -149,5 +158,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#F4BAA7",
     fontSize: 20,
+    width: '80%'
   },
 });

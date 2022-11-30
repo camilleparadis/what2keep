@@ -23,8 +23,9 @@ export default function Login({ navigation }) {
       // console.log("trying to login");
       // console.log("email: " + email);
       // console.log("password: " + password);
-      /*const response = await*/ axios
-        .get("http://192.168.1.12:5001/users/" + email + "/" + password)
+      /*const response = await*/ 
+      axios
+        .get("http://10.144.168.120:5001/users/" + email + "/" + password)
         .then((response) => {
           console.log("userId: " + response.data);
           // let result = findUserByEmail(response.data.email)

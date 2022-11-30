@@ -58,7 +58,7 @@ useEffect(() => {
       </ScrollView>
         <FAB style={{padding: 20}} onPress={() => 
           {navigation.navigate("AddItem", {
-            userIDkey: userId
+            userId: userId
           }
           )}} title="Add Item"/>
       </View>
