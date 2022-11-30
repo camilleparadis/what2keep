@@ -32,7 +32,7 @@ export default function ViewItem({ route, navigation }) {
           itemId
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setItem(response.data);
         return response.data;
       });
