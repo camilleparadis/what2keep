@@ -5,20 +5,56 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 import React from "react";
 
 export default function ViewItem({ route, navigation }) {
   const { userId } = route.params;
+  const { itemId } = route.params;
+  // const [itemName, setItemName] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [category, setCategory] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [image, setImage] = useState("");
+  // const [usage, setUsage] = useState(0);
+
+  const getItem = () => {
+    axios
+      .get("https://what2keep.azurewebsites.net/users-items/" + itemId)
+      .then((response) => {
+        console.log(response.data)
+        return response.data
+        });
+  }
+  useEffect(() => {
+    getItem();
+  }, [])
+
   return (
     <ImageBackground
       source={require("../assets/itemBackground.png")}
       resizeMode="cover"
       style={styles.image}
     >
-      <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
+
+    <ScrollView>
+    <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
         View Item
       </Text>
+
+      <Text style={styles.inputText}>Item Name:</Text>
+      <Text style={styles.item}>{item.name}</Text>
+      <Text style={styles.inputText}>Item Description:</Text>
+      <Text style={styles.item}>{item.description}</Text>
+      <Text style={styles.inputText}>Item Category:</Text>
+      <Text style={styles.item}>{item.category}</Text>
+      <Text style={styles.inputText}>Item Location:</Text>
+      <Text style={styles.item}>{item.location}</Text>
+      <Text style={styles.inputText}>Item Image:</Text>
+      <Text style={styles.item}>{item.image}</Text>
+      <Text style={styles.inputText}>Item Usage:</Text>
+      <Text style={styles.item}>{item.usage}</Text>
 
       <View style={styles.container}>
         <TouchableOpacity
@@ -26,6 +62,7 @@ export default function ViewItem({ route, navigation }) {
           onPress={() => {
             navigation.navigate("EditItem", {
               userId: userId,
+              itemId
             });
           }}
         >
@@ -60,6 +97,7 @@ export default function ViewItem({ route, navigation }) {
           />
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
@@ -105,5 +143,11 @@ const styles = StyleSheet.create({
     fontFamily: "Inter-Light",
     fontSize: 20,
     autoCapitalize: "none",
+  },
+  item: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "#F4BAA7",
+    fontSize: 20,
   },
 });

@@ -28,7 +28,6 @@ const getItems = () => {
       });
 }
 useEffect(() => {
-  // write your code here, it's like componentWillMount
   getItems();
 }, [])
 
@@ -47,7 +46,9 @@ useEffect(() => {
             // title={item.name}
             style={styles.item}
             onPress={() => {
-            navigation.navigate("ViewItem");
+            navigation.navigate("ViewItem", {
+              itemKey : item,
+            });
             }}>
             <Text style={styles.inputText}>{item.name}</Text>
           </TouchableOpacity>
