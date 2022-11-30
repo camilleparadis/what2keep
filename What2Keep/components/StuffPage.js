@@ -66,6 +66,10 @@ export default function StuffPage({ navigation, route }) {
                   }}
                 >
                   <Text style={styles.inputText}>{item.name}</Text>
+                  <Image
+                    source={{ uri: item.image }}
+                    style={{ width: 75, height: 75, alignSelf: "center" }}
+                  />
                 </TouchableOpacity>
               </View>
             );
@@ -93,10 +97,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   item: {
-    marginTop: 24,
-    padding: 30,
+    marginTop: 15,
+    padding: 10,
     backgroundColor: "#F4BAA7",
     fontSize: 24,
+    width: "80%",
   },
   image: {
     flex: 1,
