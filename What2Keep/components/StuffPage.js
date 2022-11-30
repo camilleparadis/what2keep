@@ -35,7 +35,9 @@ export default function StuffPage({ route, navigation }) {
                   // title={item.name}
                   style={styles.item}
                   onPress={() => {
-                    navigation.navigate("ViewItem");
+                    navigation.navigate("ViewItem", {
+                      userId: userId,
+                    });
                   }}
                 >
                   <Text style={styles.inputText}>{item.name}</Text>
