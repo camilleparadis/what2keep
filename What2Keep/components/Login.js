@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
       console.log("email: " + email);
       console.log("password: " + password);
       /*const response = await*/ axios
-        .get("http://10.144.34.37:5001/users/" + email)
+        .get("http://192.168.1.12:5001/users/" + email + "/" + password) // TODO: ADD PASSWORD ONCE THAT HAS BEEN FIXED WITH THE API
         .then((response) => {
           console.log("userId: " + response.data);
           // let result = findUserByEmail(response.data.email)

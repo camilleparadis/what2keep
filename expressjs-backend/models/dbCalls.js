@@ -42,33 +42,33 @@ async function addUser(email, password, name) {
   }
 }
 
-async function findUserById(userId) {
-  const userModel = getDbConnection().model("User", UserSchema);
-  return await userModel.find({ _id: userId });
-}
+// async function findUserById(userId) {
+//   const userModel = getDbConnection().model("User", UserSchema);
+//   return await userModel.find({ _id: userId });
+// }
 
-async function findUserByEmail(email) {
-  const userModel = getDbConnection().model("User", UserSchema);
-  return await userModel.find({ email });
-}
+// async function findUserByEmailAndPassword(email, password) {
+//   const userModel = getDbConnection().model("User", UserSchema);
+//   return await userModel.find({ email, password });
+// }
 
 // R
-async function getUsers(userId, email) {
+async function getUsers(userId, email, password) {
   const userModel = getDbConnection().model("User", UserSchema);
   if (userId) {
     // get a particular user
     try {
-      return (await findUserById(userId))[0];
+      return (await userModel.find({ _id: userId }))[0];
     } catch (error) {
       throw new Error("UserIdNotFoundException");
     }
-  } else if (email) {
-    // get a particular user by email
-    const res = (await findUserByEmail(email))[0];
+  } else if (email && password) {
+    // get a particular user by email and password
+    const res = (await userModel.find({ email: email, password: password }))[0];
     if (res != undefined) {
       return res;
     } else {
-      throw new Error("UserEmailNotFoundException");
+      throw new Error("UserEmailPasswordNotFoundException");
     }
   } else {
     // get every user

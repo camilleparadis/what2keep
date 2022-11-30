@@ -7,6 +7,7 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
@@ -65,103 +66,105 @@ export default function AddItem({ route, navigation }) {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/itemBackground.png")}
-      resizeMode="cover"
-      style={styles.image}
-    >
-      <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
-        Add Your Item
-      </Text>
+    <ScrollView>
+      <ImageBackground
+        source={require("../assets/itemBackground.png")}
+        resizeMode="cover"
+        style={styles.image}
+      >
+        <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
+          Add Your Item
+        </Text>
 
-      <Text style={styles.inputText}>Item Name:</Text>
-      <TextInput
-        placeholder="i.e. Blue Scarf"
-        value={itemName}
-        onChangeText={(text) => setItemName(text)}
-        style={styles.input}
-      />
+        <Text style={styles.inputText}>Item Name:</Text>
+        <TextInput
+          placeholder="i.e. Blue Scarf"
+          value={itemName}
+          onChangeText={(text) => setItemName(text)}
+          style={styles.input}
+        />
 
-      <Text style={styles.inputText}>Item Description:</Text>
-      <TextInput
-        placeholder="i.e. Birthday Present, In Downstairs Closet"
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-        style={styles.inputdes}
-      />
+        <Text style={styles.inputText}>Item Description:</Text>
+        <TextInput
+          placeholder="i.e. Birthday Present, In Downstairs Closet"
+          value={description}
+          onChangeText={(text) => setDescription(text)}
+          style={styles.inputdes}
+        />
 
-      <Text style={styles.inputText}>Item category:</Text>
-      <TextInput
-        placeholder="i.e. accessory"
-        value={category}
-        onChangeText={(text) => setCategory(text)}
-        style={styles.input}
-      />
+        <Text style={styles.inputText}>Item category:</Text>
+        <TextInput
+          placeholder="i.e. accessory"
+          value={category}
+          onChangeText={(text) => setCategory(text)}
+          style={styles.input}
+        />
 
-      <Text style={styles.inputText}>Item image:</Text>
-      <TextInput
-        placeholder="a url which points to the image"
-        value={location}
-        onChangeText={(text) => setImage(text)}
-        style={styles.input}
-      />
+        <Text style={styles.inputText}>Item image:</Text>
+        <TextInput
+          placeholder="a url which points to the image"
+          value={image}
+          onChangeText={(text) => setImage(text)}
+          style={styles.input}
+        />
 
-      <Text style={styles.inputText}>Item location:</Text>
-      <TextInput
-        placeholder="i.e. my apartment"
-        value={location}
-        onChangeText={(text) => setLocation(text)}
-        style={styles.input}
-      />
+        <Text style={styles.inputText}>Item location:</Text>
+        <TextInput
+          placeholder="i.e. my apartment"
+          value={location}
+          onChangeText={(text) => setLocation(text)}
+          style={styles.input}
+        />
 
-      <Text style={styles.inputText}>Item usage:</Text>
-      <TextInput
-        placeholder="i.e. usage per week"
-        value={location}
-        onChangeText={(text) => setUsage(text)}
-        style={styles.input}
-      />
+        <Text style={styles.inputText}>Item usage:</Text>
+        <TextInput
+          placeholder="i.e. usage per week"
+          value={usage}
+          onChangeText={(text) => setUsage(text)}
+          style={styles.input}
+        />
 
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.button} onPress={addingItem}>
-          {/* NOT 100 % IF THIS IS THE CORRECT WAY TO CALL THE FUNCTION BUT WE'LL SEE */}
-          <Image
-            source={require("../assets/checkButton.png")}
-            style={{
-              width: 90,
-              height: 90,
-              position: "absolute",
-              bottom: 0,
-              left: 0,
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.button} onPress={addingItem}>
+            {/* NOT 100 % IF THIS IS THE CORRECT WAY TO CALL THE FUNCTION BUT WE'LL SEE */}
+            <Image
+              source={require("../assets/checkButton.png")}
+              style={{
+                width: 90,
+                height: 90,
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("StuffPage", {
+                userId: userId,
+              });
             }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("StuffPage", {
-              userId: userId,
-            });
-          }}
-        >
-          <Image
-            source={require("../assets/deleteButton.png")}
-            style={{
-              width: 90,
-              height: 90,
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+          >
+            <Image
+              source={require("../assets/deleteButton.png")}
+              style={{
+                width: 90,
+                height: 90,
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
 
-      {/* <View>
+        {/* <View>
         <Text>AddItem</Text> 
         <Button title="testing" onPress={testingConnection2} />
       </View> */}
-    </ImageBackground>
+      </ImageBackground>
+    </ScrollView>
   );
 }
 
