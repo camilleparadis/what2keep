@@ -11,9 +11,10 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function EditItem({ route, navigation }) {
-  const { userId /*itemId */ } = route.params;
+  const { userId, itemId } = route.params;
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -22,17 +23,22 @@ export default function EditItem({ route, navigation }) {
   const [usage, setUsage] = useState(0);
 
   const editingItem = async () => {
+    console.log("location: " + location);
     axios
-      .patch("https://what2keep.azurewebsites.net/user-items", {
-        userId,
-        // itemId,
-        category: category ? category : undefined,
-        location: location ? location : undefined,
-        info: description ? description : undefined,
-        image: image ? description : undefined,
-        name: itemName ? itemName : undefined,
-        usage: usage ? usage : undefined,
-      }) // localhost
+      .patch(
+        /*"https://what2keep.azurewebsites.net/user-items"*/ access +
+          "user-items/",
+        {
+          userId,
+          itemId,
+          category: category ? category : undefined,
+          location: location ? location : undefined,
+          info: description ? description : undefined,
+          image: image ? description : undefined,
+          name: itemName ? itemName : undefined,
+          usage: usage ? usage : undefined,
+        }
+      ) // localhost
       .then((response) => {
         navigation.navigate("StuffPage", {
           userId: userId,
@@ -178,7 +184,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: "Inter-Light",
+    //fontFamily: "Inter-Light",
     fontSize: 20,
     autoCapitalize: "none",
   },

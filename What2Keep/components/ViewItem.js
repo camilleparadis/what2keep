@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function ViewItem({ route, navigation }) {
   const { userId } = route.params;
@@ -23,7 +24,13 @@ export default function ViewItem({ route, navigation }) {
 
   const getItem = () => {
     axios
-      .get("http://10.144.34.37:5001/user-items/" + userId + "/" + itemId)
+      .get(
+        /*"http://10.144.34.37:5001/user-items/"*/ access +
+          "user-items/" +
+          userId +
+          "/" +
+          itemId
+      )
       .then((response) => {
         console.log(response.data);
         setItem(response.data);

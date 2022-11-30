@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export default function Register({ navigation }) {
   async function addUser() {
     try {
       const response = await axios.post(
-        "https://what2keep.azurewebsites.net/users",
+        /*"https://what2keep.azurewebsites.net/users"*/ access + "users",
         {
           name: name,
           email: email,

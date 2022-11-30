@@ -13,6 +13,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { FAB } from "react-native-elements";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function StuffPage({ navigation, route }) {
   const { userId } = route.params;
@@ -32,7 +33,11 @@ export default function StuffPage({ navigation, route }) {
   // }
   const getItems = () => {
     axios
-      .get("http://10.144.34.37:5001/user-items/" + userId)
+      .get(
+        /*"http://10.144.34.37:5001/user-items/"*/ access +
+          "user-items/" +
+          userId
+      )
       .then((response) => {
         setItems(response.data);
       })
