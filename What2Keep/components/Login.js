@@ -6,6 +6,11 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  function onLogin(e) {
+    e.preventDefault()
+    navigation.navigate("Stats")
+  }
+
   return (
     <ImageBackground source = {require('../assets/loginBackground.png')}
     resizeMode = "cover"
@@ -38,7 +43,8 @@ export default function Login({ navigation }) {
         }}
         underlayColor='#fff'>
         {/* <Text style={{fontFamily: 'Iowan Old Style', fontSize: 17, padding: 1 }}>LOGIN</Text> */}
-        <Text style={{fontSize: 17, padding: 1 }}>LOGIN</Text>
+        {/* <Text style={{fontSize: 17, padding: 1 }} >LOGIN</Text> */}
+        <Button style={{fontSize: 17, padding: 1 }} onClick={onLogin}> Login </Button>
       </TouchableOpacity>
     </SafeAreaView>
   </ImageBackground>
