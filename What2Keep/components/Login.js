@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -25,7 +26,13 @@ export default function Login({ navigation }) {
       // console.log("password: " + password);
       /*const response = await*/
       axios
-        .get("http://10.144.34.37:5001/users/" + email + "/" + password)
+        .get(
+          /*"http://10.144.34.37:5001/users/"*/ access +
+            "users/" +
+            email +
+            "/" +
+            password
+        )
         .then((response) => {
           console.log("userId: " + response.data);
           // let result = findUserByEmail(response.data.email)

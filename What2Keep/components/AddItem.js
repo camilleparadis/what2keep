@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
+import { access } from "../Access";
 
 export default function AddItem({ route, navigation }) {
   const { userId } = route.params;
@@ -46,7 +47,7 @@ export default function AddItem({ route, navigation }) {
 
   const addingItem = async () => {
     axios
-      .post("http://10.144.34.37:5001/user-items", {
+      .post(/*"http://10.144.34.37:5001/user-items"*/ access + "user-items", {
         userId,
         category: category,
         location: location,
