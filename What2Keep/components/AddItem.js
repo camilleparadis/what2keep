@@ -73,9 +73,11 @@ export default function AddItem({ route, navigation }) {
         resizeMode="cover"
         style={styles.image}
       >
-        <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
+        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
           Add Your Item
         </Text>
+
+        <View style={{alignSelf: 'center', width: '80%'}}>
 
         <Text style={styles.inputText}>Item Name:</Text>
         <TextInput
@@ -124,6 +126,7 @@ export default function AddItem({ route, navigation }) {
           onChangeText={(text) => setUsage(text)}
           style={styles.input}
         />
+        </View>
 
         <View style={styles.container}>
           <TouchableOpacity style={styles.button} onPress={addingItem}>
@@ -159,11 +162,6 @@ export default function AddItem({ route, navigation }) {
             />
           </TouchableOpacity>
         </View>
-
-        {/* <View>
-        <Text>AddItem</Text> 
-        <Button title="testing" onPress={testingConnection2} />
-      </View> */}
       </ImageBackground>
     </ScrollView>
   );
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: "Inter-Light",
+    fontFamily: 'sans-serif-thin',
     fontSize: 20,
     autoCapitalize: "none",
   },

@@ -49,14 +49,29 @@ export default function EditItem({ route, navigation }) {
       });
   };
 
+  const deleteItem = async () => {
+    axios
+      .delete(access + "user-items/" + userId + '/' + itemId)
+      .then((response) => {
+        navigation.navigate("StuffPage", {
+          userId: userId,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }
+
   return (
+    // <ScrollView contentInsetAdjustmentBehavior="automatic">
     <ScrollView>
       <ImageBackground
         source={require("../assets/itemBackground.png")}
         resizeMode="cover"
         style={styles.image}
       >
-        <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
+        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
           Edit Item
         </Text>
 
@@ -184,7 +199,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    //fontFamily: "Inter-Light",
+    fontFamily: 'sans-serif-thin',
     fontSize: 20,
     autoCapitalize: "none",
   },
