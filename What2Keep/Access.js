@@ -1,1 +1,1 @@
-export const access = "http://192.168.1.12:5001/";
+export const access = "http://10.144.34.37:5001/";
