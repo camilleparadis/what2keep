@@ -49,6 +49,20 @@ export default function EditItem({ route, navigation }) {
       });
   };
 
+  const deleteItem = async () => {
+    axios
+      .delete(access + "user-items/" + userId + '/' + itemId)
+      .then((response) => {
+        navigation.navigate("StuffPage", {
+          userId: userId,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }
+
   return (
     // <ScrollView contentInsetAdjustmentBehavior="automatic">
     <ScrollView>
@@ -185,11 +199,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-<<<<<<< HEAD
     fontFamily: 'sans-serif-thin',
-=======
-    //fontFamily: "Inter-Light",
->>>>>>> 08ee5043dd3e0f7811998aef6ecbe054659a44d6
     fontSize: 20,
     autoCapitalize: "none",
   },
