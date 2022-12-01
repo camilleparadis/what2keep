@@ -162,7 +162,7 @@ async function getItem(userId, itemId) {
     if (res[0]) {
       return res;
     } else {
-      throw new Error("NoItemsFoundException");
+      return [];
     }
   }
 }

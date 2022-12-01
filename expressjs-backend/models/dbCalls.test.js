@@ -222,15 +222,17 @@ test("Testing read all items from user 1", async () => {
 });
 
 // R
-test("Testing read all items from user 2 which has none so fails", async () => {
-  try {
-    // read the item
-    // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email2);
-    await myFunctions.getItem(start._id, undefined);
-  } catch (error) {
-    expect(error).toEqual(new Error("NoItemsFoundException"));
-  }
+test("Testing read all items from user 2 which has none so empty list", async () => {
+  // read the item
+  // need to get the id first
+  const start = await myFunctions.getUsers(undefined, email2);
+  const res = await myFunctions.getItem(start._id, undefined);
+  expect(res).toEqual([]);
+  // try {
+
+  // } catch (error) {
+  //   expect(error).toEqual(new Error("NoItemsFoundException"));
+  // }
 });
 
 // R
