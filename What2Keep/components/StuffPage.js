@@ -50,6 +50,7 @@ export default function StuffPage({ navigation, route }) {
       resizeMode="cover"
       style={styles.image}
     >
+      <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <ScrollView>
           {items.map((item) => {
@@ -85,6 +86,7 @@ export default function StuffPage({ navigation, route }) {
           title="Add Item"
         />
       </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 }
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: "Inter-thin",
+    fontFamily: 'sans-serif-thin',
     fontSize: 25,
     autoCapitalize: "none",
   },

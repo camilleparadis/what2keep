@@ -49,7 +49,7 @@ export default function Login({ navigation }) {
       style={styles.image}
     >
       <SafeAreaView style={styles.container}>
-        <Text style={{ fontFamily: "Inter-Light", fontSize: 40, padding: 30 }}>
+        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
           Login
         </Text>
         <Text style={styles.inputText}>Enter Email:</Text>
@@ -75,7 +75,7 @@ export default function Login({ navigation }) {
           onPress={logIn}
           underlayColor="#fff"
         >
-          <Text style={{ fontFamily: "Inter-Light", fontSize: 17, padding: 1 }}>
+          <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 17, padding: 1 }}>
             LOGIN
           </Text>
         </TouchableOpacity>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: "Inter-thin",
+    fontFamily: 'sans-serif-thin',
     fontSize: 15,
     autoCapitalize: "none",
   },

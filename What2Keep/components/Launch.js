@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff'
   },
   loginText: {
-    fontFamily: "Inter-Light", 
+    fontFamily: 'sans-serif-thin', 
     fontSize: 25,
     // fontWeight: "bold",
     color:'#fff',

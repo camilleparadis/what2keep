@@ -5,6 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import React from "react";
 
@@ -16,6 +17,7 @@ export default function Home({ route, navigation }) {
       resizeMode="cover"
       style={styles.image}
     >
+      <SafeAreaView style={{flex: 1}}>
       <View style={styles.image}>
         <Image
           source={require("../assets/W2KLogo.png")}
@@ -29,13 +31,13 @@ export default function Home({ route, navigation }) {
           paddingTop: 80,
           paddingBottom: 10,
           textAlign: "center",
-          fontFamily: "Inter-Light",
+          fontFamily: "sans-serif-thin",
         }}
       >
         “The easiest way to organize your stuff is to get rid of most of it”
       </Text>
       <Text
-        style={{ fontSize: 15, paddingBottom: 100, fontFamily: "Inter-Light" }}
+        style={{ fontSize: 15, paddingBottom: 100, fontFamily: 'sans-serif-thin', alignSelf: 'center' }}
       >
         -Joshua Fields Millburn
       </Text>
@@ -74,6 +76,7 @@ export default function Home({ route, navigation }) {
           <Text style={styles.loginText}>Settings</Text>
         </TouchableOpacity>
       </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 }
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontFamily: "Inter-Light",
+    fontFamily: 'sans-serif-thin',
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",

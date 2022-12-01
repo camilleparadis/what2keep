@@ -7,8 +7,8 @@ export default function Stats({ navigation }) {
     resizeMode = "cover"
     style = {styles.image}>
     
-    <Text style={{fontFamily: "Inter-Light", fontSize: 20, padding: 10, backgroundColor: 'white' }}>You Got This! We Are Proud Of You!</Text>
-    <Text style={{fontFamily: "Inter-Light", fontSize: 30, padding: 30 }}>Items To Toss To Help Achieve Your Goal of x% Utilization:</Text>
+    <Text style={{fontFamily: 'sans-serif-thin', fontSize: 20, padding: 10, backgroundColor: 'white' }}>You Got This! We Are Proud Of You!</Text>
+    <Text style={{fontFamily: 'sans-serif-thin', fontSize: 30, padding: 30 }}>Items To Toss To Help Achieve Your Goal of x% Utilization:</Text>
       
     </ImageBackground>
   );
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontFamily: "Inter-Light",
+    fontFamily: 'sans-serif-thin',
     fontWeight: "bold",
     color:'#fff',
     textAlign:'center',
