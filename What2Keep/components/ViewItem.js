@@ -37,6 +37,20 @@ export default function ViewItem({ route, navigation }) {
         return response.data;
       });
   };
+
+  const deleteItem = async () => {
+    axios
+      .delete(access + "user-items/" + userId + "/" + itemId)
+      .then((response) => {
+        navigation.navigate("StuffPage", {
+          userId: userId,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     getItem();
   }, []);
@@ -50,7 +64,7 @@ export default function ViewItem({ route, navigation }) {
       <ScrollView>
         <View style={styles.attributes}>
           <Text
-            style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}
+            style={{ fontFamily: "sans-serif-thin", fontSize: 40, padding: 30 }}
           >
             View Item
           </Text>
@@ -92,14 +106,7 @@ export default function ViewItem({ route, navigation }) {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate("StuffPage", {
-                userId: userId,
-              });
-            }}
-          >
+          <TouchableOpacity style={styles.button} onPress={deleteItem}>
             <Image
               source={require("../assets/deleteButton.png")}
               style={{
@@ -160,7 +167,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: 'sans-serif-thin',
+    fontFamily: "sans-serif-thin",
     fontSize: 20,
     autoCapitalize: "none",
   },

@@ -55,42 +55,42 @@ export default function StuffPage({ navigation, route }) {
       resizeMode="cover"
       style={styles.image}
     >
-      <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <ScrollView>
-          {items.map((item) => {
-            return (
-              <View key={item.key}>
-                <TouchableOpacity
-                  // title={item.name}
-                  style={styles.item}
-                  onPress={() => {
-                    navigation.navigate("ViewItem", {
-                      userId: userId,
-                      itemId: item._id,
-                    });
-                  }}
-                >
-                  <Text style={styles.inputText}>{item.name}</Text>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={{ width: 75, height: 75, alignSelf: "center" }}
-                  />
-                </TouchableOpacity>
-              </View>
-            );
-          })}
-        </ScrollView>
-        <FAB
-          style={{ padding: 20 }}
-          onPress={() => {
-            navigation.navigate("AddItem", {
-              userId: userId,
-            });
-          }}
-          title="Add Item"
-        />
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <ScrollView>
+            {items.map((item) => {
+              return (
+                <View key={item._id}>
+                  <TouchableOpacity
+                    // title={item.name}
+                    style={styles.item}
+                    onPress={() => {
+                      navigation.navigate("ViewItem", {
+                        userId: userId,
+                        itemId: item._id,
+                      });
+                    }}
+                  >
+                    <Text style={styles.inputText}>{item.name}</Text>
+                    <Image
+                      source={{ uri: item.image }}
+                      style={{ width: 75, height: 75, alignSelf: "center" }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
+          </ScrollView>
+          <FAB
+            style={{ padding: 20 }}
+            onPress={() => {
+              navigation.navigate("AddItem", {
+                userId: userId,
+              });
+            }}
+            title="Add Item"
+          />
+        </View>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: 'sans-serif-thin',
+    fontFamily: "sans-serif-thin",
     fontSize: 25,
     autoCapitalize: "none",
   },

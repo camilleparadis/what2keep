@@ -51,7 +51,7 @@ export default function EditItem({ route, navigation }) {
 
   const deleteItem = async () => {
     axios
-      .delete(access + "user-items/" + userId + '/' + itemId)
+      .delete(access + "user-items/" + userId + "/" + itemId)
       .then((response) => {
         navigation.navigate("StuffPage", {
           userId: userId,
@@ -60,8 +60,7 @@ export default function EditItem({ route, navigation }) {
       .catch((error) => {
         console.error(error);
       });
-
-  }
+  };
 
   return (
     // <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -71,7 +70,9 @@ export default function EditItem({ route, navigation }) {
         resizeMode="cover"
         style={styles.image}
       >
-        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
+        <Text
+          style={{ fontFamily: "sans-serif-thin", fontSize: 40, padding: 30 }}
+        >
           Edit Item
         </Text>
 
@@ -136,14 +137,7 @@ export default function EditItem({ route, navigation }) {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate("StuffPage", {
-                userId: userId,
-              });
-            }}
-          >
+          <TouchableOpacity style={styles.button} onPress={deleteItem}>
             <Image
               source={require("../assets/deleteButton.png")}
               style={{
@@ -199,7 +193,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: 'sans-serif-thin',
+    fontFamily: "sans-serif-thin",
     fontSize: 20,
     autoCapitalize: "none",
   },

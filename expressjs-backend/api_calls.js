@@ -167,8 +167,8 @@ app.patch("/users", async (req, res) => {
 
 // D
 // delete a particular user
-app.delete("/users", async (req, res) => {
-  const { userId } = req.body;
+app.delete("/users/:userId", async (req, res) => {
+  const userId = req.params["userId"];
   if (userId === undefined) {
     // need the userId
     res.status(401).end();
@@ -184,8 +184,9 @@ app.delete("/users", async (req, res) => {
 
 // D
 // delete a particular item
-app.delete("/user-items", async (req, res) => {
-  const { userId, itemId } = req.body;
+app.delete("/user-items/:userId/:itemId", async (req, res) => {
+  const userId = req.params["userId"];
+  const itemId = req.params["itemId"];
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
