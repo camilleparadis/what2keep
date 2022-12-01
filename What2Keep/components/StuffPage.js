@@ -10,10 +10,11 @@ import {
   TouchableOpacity,
   DatePickerAndroid,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FAB } from "react-native-elements";
 import axios from "axios";
 import { access } from "../Access";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function StuffPage({ navigation, route }) {
   const { userId } = route.params;
@@ -45,9 +46,12 @@ export default function StuffPage({ navigation, route }) {
         console.error(error);
       });
   };
-  useEffect(() => {
-    getItems();
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getItems();
+    }, [])
+  );
 
   return (
     <ImageBackground

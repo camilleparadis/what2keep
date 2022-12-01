@@ -23,7 +23,6 @@ export default function EditItem({ route, navigation }) {
   const [usage, setUsage] = useState(0);
 
   const editingItem = async () => {
-    console.log("location: " + location);
     axios
       .patch(
         /*"https://what2keep.azurewebsites.net/user-items"*/ access +
