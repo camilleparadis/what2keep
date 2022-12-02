@@ -49,7 +49,31 @@ From there you are free to start using the app!
 **To access the web deployment for our backend, use this link**
 https://what2keep.azurewebsites.net/
 
-## Contributing
+## Tools Used
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
+
+
+
+## Contributors
+Camille Paradis: https://github.com/camilleparadis FrontEnd Developer
+
+Jeremiah Lee: https://github.com/jkailee DevOps and Documentation
+
+Ryan Takahashi: https://github.com/rhtakaha Backend Engineer
+
+Sujanya Srinath: https://github.com/sujanyasrinath Data Layer Engineer
+
+## Want to Contribute?
 What2Keep utilizes the Airbnb code style, found here: https://airbnb.io/javascript/react/
 
 Prettier is used in this project to enforce consistent code style to increase readability/maintainability.
