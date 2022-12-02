@@ -5,7 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import React from "react";
 
@@ -17,65 +17,70 @@ export default function Home({ route, navigation }) {
       resizeMode="cover"
       style={styles.image}
     >
-      <SafeAreaView style={{flex: 1}}>
-      <View style={styles.image}>
-        <Image
-          source={require("../assets/W2KLogo.png")}
-          style={{ width: 150, height: 150 }}
-        />
-      </View>
-      <Text
-        style={{
-          fontSize: 25,
-          padding: 40,
-          paddingTop: 80,
-          paddingBottom: 10,
-          textAlign: "center",
-          fontFamily: "sans-serif-thin",
-        }}
-      >
-        “The easiest way to organize your stuff is to get rid of most of it”
-      </Text>
-      <Text
-        style={{ fontSize: 15, paddingBottom: 100, fontFamily: 'sans-serif-thin', alignSelf: 'center' }}
-      >
-        -Joshua Fields Millburn
-      </Text>
-      <TouchableOpacity
-        style={styles.button1}
-        onPress={() => {
-          navigation.navigate("StuffPage", {
-            userId: userId,
-          });
-        }}
-        underlayColor="#fff"
-      >
-        <Text style={styles.loginText}>View Your Stuff!</Text>
-      </TouchableOpacity>
-      <View style={styles.container}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.image}>
+          <Image
+            source={require("../assets/W2KLogo.png")}
+            style={{ width: 150, height: 150 }}
+          />
+        </View>
+        <Text
+          style={{
+            fontSize: 25,
+            padding: 40,
+            paddingTop: 80,
+            paddingBottom: 10,
+            textAlign: "center",
+            fontFamily: "sans-serif-thin",
+          }}
+        >
+          “The easiest way to organize your stuff is to get rid of most of it”
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
+            paddingBottom: 100,
+            fontFamily: "sans-serif-thin",
+            alignSelf: "center",
+          }}
+        >
+          -Joshua Fields Millburn
+        </Text>
         <TouchableOpacity
-          style={styles.bottomButton}
+          style={styles.button1}
           onPress={() => {
-            navigation.navigate("Stats", {
+            navigation.navigate("StuffPage", {
               userId: userId,
             });
           }}
           underlayColor="#fff"
         >
-          <Text style={styles.loginText}>Stats</Text>
+          <Text style={styles.loginText}>View Your Stuff!</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottomButton}
-          onPress={() => {
-            navigation.navigate("Settings", {
-              userId: userId,
-            });
-          }}
-          underlayColor="#fff"
-        >
-          <Text style={styles.loginText}>Settings</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.bottomButton}
+            onPress={() => {
+              navigation.navigate("Stats", {
+                userId: userId,
+              });
+            }}
+            underlayColor="#fff"
+          >
+            <Text style={styles.loginText}>Stats</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.bottomButton}
+            onPress={() => {
+              navigation.navigate("Settings", {
+                userId: userId,
+              });
+            }}
+            underlayColor="#fff"
+          >
+            <Text style={styles.loginText}>Settings</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontFamily: 'sans-serif-thin',
+    fontFamily: "sans-serif-thin",
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",
