@@ -31,7 +31,7 @@ export default function Home({ route, navigation }) {
             paddingTop: 80,
             paddingBottom: 10,
             textAlign: "center",
-            fontFamily: "sans-serif-thin",
+            fontFamily: 'Inter-Light',
           }}
         >
           “The easiest way to organize your stuff is to get rid of most of it”
@@ -40,7 +40,7 @@ export default function Home({ route, navigation }) {
           style={{
             fontSize: 15,
             paddingBottom: 100,
-            fontFamily: "sans-serif-thin",
+            fontFamily: 'Inter-Light',
             alignSelf: "center",
           }}
         >
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 20,
-    fontFamily: "sans-serif-thin",
+    fontFamily: 'Inter-Light',
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",

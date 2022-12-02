@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: "sans-serif-thin",
+    fontFamily: 'Inter-Light',
     fontSize: 25,
     autoCapitalize: "none",
   },

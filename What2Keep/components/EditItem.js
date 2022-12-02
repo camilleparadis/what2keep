@@ -70,7 +70,7 @@ export default function EditItem({ route, navigation }) {
         style={styles.image}
       >
         <Text
-          style={{ fontFamily: "sans-serif-thin", fontSize: 40, padding: 30 }}
+          style={{ fontFamily: 'Inter-Light', fontSize: 40, padding: 30 }}
         >
           Edit Item
         </Text>
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: "sans-serif-thin",
+    fontFamily: 'Inter-Light',
     fontSize: 20,
     autoCapitalize: "none",
   },

@@ -73,7 +73,7 @@ export default function AddItem({ route, navigation }) {
         resizeMode="cover"
         style={styles.image}
       >
-        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
+        <Text style={{ fontFamily: 'Inter-Light', fontSize: 40, padding: 30 }}>
           Add Your Item
         </Text>
 
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.35,
   },
   inputText: {
-    fontFamily: 'sans-serif-thin',
+    fontFamily: 'Inter-Light',
     fontSize: 20,
     autoCapitalize: "none",
   },
