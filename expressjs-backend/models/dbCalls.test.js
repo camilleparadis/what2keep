@@ -82,15 +82,15 @@ test("Testing add user 2", async () => {
   );
 });
 
-test("Testing get an user that exists by email", async () => {
+test("Testing get an user that exists by email and password", async () => {
   // R
-  const res = await myFunctions.getUsers(undefined, email);
+  const res = await myFunctions.getUsers(undefined, email, password);
   expect(res).toEqual(expect.objectContaining({ email, password, name }));
 });
 
 test("Testing get a user that exists by id", async () => {
   // R
-  const start = await myFunctions.getUsers(undefined, email2);
+  const start = await myFunctions.getUsers(undefined, email2, password2);
   const res = await myFunctions.getUsers(start._id, undefined);
   expect(res).toEqual(
     expect.objectContaining({
@@ -111,13 +111,13 @@ test("Testing get an user that DOESN'T exists by id", async () => {
   }
 });
 
-test("Testing get an user that DOESN'T exists by email", async () => {
+test("Testing get an user that DOESN'T exists by email and password", async () => {
   // R
   // async await way to test for exceptions
   try {
-    await myFunctions.getUsers(undefined, "xxfakeUserIdxx");
+    await myFunctions.getUsers(undefined, "xxfakeUserIdxx", "xxfakePasswordxx");
   } catch (error) {
-    expect(error).toEqual(new Error("UserEmailNotFoundException"));
+    expect(error).toEqual(new Error("UserEmailPasswordNotFoundException"));
   }
 });
 
@@ -130,12 +130,12 @@ test("Testing get all users", async () => {
 test("Testing update an user", async () => {
   // U
   // need to get the id first
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const res = await myFunctions.updateUser(
     start._id,
     undefined,
-    "password",
     undefined,
+    "Jerry",
   );
   expect(res).toEqual(
     expect.objectContaining({
@@ -167,7 +167,7 @@ test("Testing update a user that DOESN'T exists", async () => {
 test("Testing add an item", async () => {
   // add the item
   // need to get the id first
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const res = await myFunctions.addItem(
     start._id,
     "cooking", //category
@@ -195,7 +195,7 @@ test("Testing add an item failure", async () => {
   try {
     // add the item
     // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email);
+    const start = await myFunctions.getUsers(undefined, email, password);
     await myFunctions.addItem(start._id);
   } catch (error) {
     expect(error).toEqual(new Error("AddItemError"));
@@ -206,7 +206,7 @@ test("Testing add an item failure", async () => {
 test("Testing read all items from user 1", async () => {
   // read the item
   // need to get the id first
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const res = await myFunctions.getItem(start._id, undefined);
   expect(res[0]).toEqual(
     expect.objectContaining({
@@ -222,15 +222,17 @@ test("Testing read all items from user 1", async () => {
 });
 
 // R
-test("Testing read all items from user 2 which has none so fails", async () => {
-  try {
-    // read the item
-    // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email2);
-    await myFunctions.getItem(start._id, undefined);
-  } catch (error) {
-    expect(error).toEqual(new Error("NoItemsFoundException"));
-  }
+test("Testing read all items from user 2 which has none so empty list", async () => {
+  // read the item
+  // need to get the id first
+  const start = await myFunctions.getUsers(undefined, email2);
+  const res = await myFunctions.getItem(start._id, undefined);
+  expect(res).toEqual([]);
+  // try {
+
+  // } catch (error) {
+  //   expect(error).toEqual(new Error("NoItemsFoundException"));
+  // }
 });
 
 // R
@@ -251,7 +253,7 @@ test("Testing read a specific item", async () => {
   // to get a specific item need the itemId, and the way to get that is to have the item
   //  the way to do this is to get all the items and use that to get an id to then check from there
   //  (this should be the way it is executed in the app)
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const item = (await myFunctions.getItem(start._id, undefined))[0];
   const res = await myFunctions.getItem(start._id, item._id);
   expect(res).toEqual(item);
@@ -263,7 +265,7 @@ test("Testing usage query", async () => {
   // to get a specific item need the itemId, and the way to get that is to have the item
   //  the way to do this is to get all the items and use that to get an id to then check from there
   //  (this should be the way it is executed in the app)
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const item = await myFunctions.getItem(start._id, undefined);
   const res = await myFunctions.queryItems(start._id, 5);
   expect(res).toEqual(item);
@@ -274,7 +276,7 @@ test("Testing query a nonexistant item", async () => {
   try {
     // read the item
     // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email);
+    const start = await myFunctions.getUsers(undefined, email, password);
     await myFunctions.queryItems(start._id, 1);
   } catch (error) {
     expect(error).toEqual(new Error("QueryFailedException"));
@@ -287,7 +289,7 @@ test("Testing category read", async () => {
   // to get a specific item need the itemId, and the way to get that is to have the item
   //  the way to do this is to get all the items and use that to get an id to then check from there
   //  (this should be the way it is executed in the app)
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const item = await myFunctions.getItem(start._id, undefined);
   const res = await myFunctions.inCategoryItems(start._id, "cooking");
   expect(res).toEqual(item);
@@ -298,7 +300,7 @@ test("Testing read a nonexistant category", async () => {
   try {
     // read the item
     // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email);
+    const start = await myFunctions.getUsers(undefined, email, password);
     await myFunctions.inCategoryItems(start._id, "flying");
   } catch (error) {
     expect(error).toEqual(new Error("CategoryNotFoundException"));
@@ -309,7 +311,7 @@ test("Testing read a nonexistant category", async () => {
 test("Testing update an item", async () => {
   // update the item
   // also need the item id (see test reading a specific item)
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const item = (await myFunctions.getItem(start._id, undefined))[0];
   const res = await myFunctions.updateItem(
     start._id,
@@ -335,7 +337,7 @@ test("Testing update an item", async () => {
 test("Testing update a nonexistant item", async () => {
   try {
     // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email);
+    const start = await myFunctions.getUsers(undefined, email, password);
     const item = (await myFunctions.getItem(start._id, undefined))[0];
     const res = await myFunctions.updateItem(start._id, "unrealItem5");
   } catch (error) {
@@ -347,7 +349,7 @@ test("Testing update a nonexistant item", async () => {
 test("Testing deleting a nonexistant item", async () => {
   try {
     // need to get the id first
-    const start = await myFunctions.getUsers(undefined, email);
+    const start = await myFunctions.getUsers(undefined, email, password);
     const res = await myFunctions.deleteItem(start._id, "unrealItem5");
   } catch (error) {
     expect(error).toEqual(new Error("DeleteItemException"));
@@ -358,7 +360,7 @@ test("Testing deleting a nonexistant item", async () => {
 test("Testing delete an item", async () => {
   // delete the item
   // also need the item id (see test reading a specific item)
-  const start = await myFunctions.getUsers(undefined, email);
+  const start = await myFunctions.getUsers(undefined, email, password);
   const item = (await myFunctions.getItem(start._id, undefined))[0];
   const res = await myFunctions.deleteItem(start._id, item._id);
   expect(res).toEqual(
@@ -395,7 +397,7 @@ test("Testing delete an user by email that DOESN'T EXIST", async () => {
 test("Testing delete a user by id", async () => {
   // U
   // need to get the id first
-  const start = await myFunctions.getUsers(undefined, email2);
+  const start = await myFunctions.getUsers(undefined, email2, password2);
   const res = await myFunctions.deleteUser(start._id, undefined);
   expect(res).toEqual(
     expect.objectContaining({

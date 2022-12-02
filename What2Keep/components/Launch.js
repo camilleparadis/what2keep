@@ -71,8 +71,9 @@ const styles = StyleSheet.create({
     borderColor: '#fff'
   },
   loginText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: 'sans-serif-thin', 
+    fontSize: 25,
+    // fontWeight: "bold",
     color:'#fff',
     textAlign:'center',
     paddingLeft : 10,

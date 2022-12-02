@@ -68,11 +68,12 @@ app.post("/users", async (req, res) => {
 
 // R
 // read from the current users
-app.get("/users/:email?", async (req, res) => {
+app.get("/users/:email?/:password?", async (req, res) => {
   const email = req.params["email"];
-  // if email is given then will look for that user otherwise gets all users (which is perhaps not necessary)
+  const password = req.params["password"];
+  // if email and password are given then will look for that user otherwise gets all users (which is perhaps not necessary)
   try {
-    const result = await dbCalls.getUsers(undefined, email);
+    const result = await dbCalls.getUsers(undefined, email, password);
     res.send(result._id).status(200).end();
   } catch (error) {
     res.status(404).end();
@@ -166,8 +167,8 @@ app.patch("/users", async (req, res) => {
 
 // D
 // delete a particular user
-app.delete("/users", async (req, res) => {
-  const { userId } = req.body;
+app.delete("/users/:userId", async (req, res) => {
+  const userId = req.params["userId"];
   if (userId === undefined) {
     // need the userId
     res.status(401).end();
@@ -183,8 +184,9 @@ app.delete("/users", async (req, res) => {
 
 // D
 // delete a particular item
-app.delete("/user-items", async (req, res) => {
-  const { userId, itemId } = req.body;
+app.delete("/user-items/:userId/:itemId", async (req, res) => {
+  const userId = req.params["userId"];
+  const itemId = req.params["itemId"];
   if (userId === undefined) {
     // if there was an error and the user isn't signed in
     res.status(401).end();
