@@ -64,6 +64,11 @@ From there you are free to start using the app!
 ## UI Prototype
 [Click Here to View to the UI Prototype (links to figma)](https://www.figma.com/proto/sXftcp87dF9KisXNEv8noA/UI-Prototype%2FStoryboarding?scaling=scale-down&page-id=0%3A1&starting-point-node-id=4%3A2&node-id=4%3A2) last edited: 11/14/2022
 
+## Further Documentation
+[Use Case Diagram](https://github.com/what2keep/what2keep/wiki/Use-Case-Diagram)
+
+[UML Class Diagram](https://github.com/what2keep/what2keep/wiki/Class-UML-Diagram)
+
 ## Tools Used
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -80,13 +85,13 @@ From there you are free to start using the app!
 
 
 ## Contributors
-Camille Paradis: https://github.com/camilleparadis FrontEnd Developer
+Camille Paradis: FrontEnd Developer    https://github.com/camilleparadis 
 
-Jeremiah Lee: https://github.com/jkailee DevOps and Documentation
+Jeremiah Lee: DevOps and Documentation https://github.com/jkailee 
 
-Ryan Takahashi: https://github.com/rhtakaha Backend Engineer
+Ryan Takahashi: Backend Engineer       https://github.com/rhtakaha 
 
-Sujanya Srinath: https://github.com/sujanyasrinath Data Layer Engineer
+Sujanya Srinath: Data Layer Engineer   https://github.com/sujanyasrinath 
 
 ## Want to Contribute?
 What2Keep utilizes the Airbnb code style, found here: https://airbnb.io/javascript/react/
