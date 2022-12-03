@@ -57,7 +57,7 @@ export default function Login({ navigation }) {
     >
       <SafeAreaView style={styles.container}>
         <Text
-          style={{ fontFamily: "sans-serif-thin", fontSize: 40, padding: 30 }}
+          style={{ fontFamily: 'Inter-Light', fontSize: 40, padding: 30 }}
         >
           Login
         </Text>
@@ -85,7 +85,7 @@ export default function Login({ navigation }) {
           underlayColor="#fff"
         >
           <Text
-            style={{ fontFamily: "sans-serif-thin", fontSize: 17, padding: 1 }}
+            style={{ fontFamily: 'Inter-Light', fontSize: 17, padding: 1 }}
           >
             LOGIN
           </Text>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: "sans-serif-thin",
+    fontFamily: 'Inter-Light',
     fontSize: 15,
     autoCapitalize: "none",
   },

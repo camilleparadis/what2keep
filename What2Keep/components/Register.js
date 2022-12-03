@@ -45,7 +45,7 @@ export default function Register({ navigation }) {
       style={styles.image}
     >
       <SafeAreaView style={styles.container}>
-        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 40, padding: 30 }}>
+        <Text style={{ fontFamily: 'Inter-Light', fontSize: 40, padding: 30 }}>
           Register
         </Text>
         <Text style={styles.inputText}>Enter Name:</Text>
@@ -86,7 +86,7 @@ export default function Register({ navigation }) {
         onPress={addUser}
         underlayColor="#fff"
       >
-        <Text style={{ fontFamily: 'sans-serif-thin', fontSize: 17, padding: 1 }}>
+        <Text style={{ fontFamily: 'Inter-Light', fontSize: 17, padding: 1 }}>
           CREATE ACCOUNT
         </Text>
       </TouchableOpacity>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 8,
     margin: 10,
-    fontFamily: 'sans-serif-thin',
+    fontFamily: 'Inter-Light',
     autoCapitalize: "none",
   },
   image: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
   },
   inputText: {
-    fontFamily: 'sans-serif-thin',
+    fontFamily: 'Inter-Light',
     fontSize: 15,
     autoCapitalize: "none",
   },
